@@ -24,6 +24,7 @@ import javax.swing.JTextPane;
 import javax.swing.JTree;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * Главный клиентский интерфейс
@@ -54,21 +55,55 @@ public class ChatView extends JFrame {
     private JScrollPane jScrollPane2;
     private JScrollPane jScrollPane3;
     private JScrollPane jScrollPane4;
-    private JTextArea mainTextArea;
+    private JTextPane publishTextPane;
     private JTextArea infoTextArea;
     private JTextPane mainTextPane;
-    private JTree mainTree;         
+    private JTree mainTree;
+    private SmileChooser smileChooser;
     
     public ChatView() {
         initComponents();
         
-        this.mainTextArea.setText("[Almaz say:]  Hello world!");
-        this.mainTextArea.setText(this.mainTextArea.getText() + "\n[Robot say:]  Hi, Almaz!");
+        this.addMessage("[Almaz say:]  Hello world!");
+        this.addMessage("[Robot say:]  Hi, Almaz!");
+        this.addMessage("[Almaz say:]  Hello world!");
+        this.addMessage("[Robot say:]  Hi, Almaz!");
+        this.addMessage("[Almaz say:]  Hello world!");
+        this.addMessage("[Robot say:]  Hi, Almaz!");
+        this.addMessage("[Almaz say:]  Hello world!");
+        this.addMessage("[Robot say:]  Hi, Almaz!");
+        this.addMessage("[Almaz say:]  Hello world!");
+        this.addMessage("[Robot say:]  Hi, Almaz!");
+        this.addMessage("[Almaz say:]  Hello world!");
+        this.addMessage("[Robot say:]  Hi, Almaz!");
+        this.addMessage("[Almaz say:]  Hello world!");
+        this.addMessage("[Robot say:]  Hi, Almaz!");
+        this.addMessage("[Almaz say:]  Hello world!");
+        this.addMessage("[Robot say:]  Hi, Almaz!");
+        this.addMessage("[Almaz say:]  Hello world!");
+        this.addMessage("[Robot say:]  Hi, Almaz!");
+        this.addMessage("[Almaz say:]  Hello world!");
+        this.addMessage("[Robot say:]  Hi, Almaz!");
+        this.addMessage("[Almaz say:]  Hello world!");
+        this.addMessage("[Robot say:]  Hi, Almaz!");
+        this.addMessage("[Almaz say:]  Hello world!");
+        this.addMessage("[Robot say:]  Hi, Almaz!");
+        this.addMessage("[Almaz say:]  Hello world!");
+        this.addMessage("[Robot say:]  Hi, Almaz!");
+        this.addMessage("[Almaz say:]  Hello world!");
+        this.addMessage("[Robot say:]  Hi, Almaz!");
+        
+        
         
         this.infoTextArea.setText("Calendar and another informations");
     }
-    private void initComponents() {
-        initElements();
+    
+    private void addMessage(String message) {
+		String text = this.publishTextPane.getText();
+		this.publishTextPane.setText(text + "\n" + message);
+	}
+	private void initComponents() {
+        createElements();
         this.setTitle("Life chat");
         this.setIconImage(new ImageIcon(getClass().getResource("/images/comments.png")).getImage());
         this.setResizable(false);
@@ -83,10 +118,8 @@ public class ChatView extends JFrame {
         connectionStatus.setText("Disconnected");
         constConnectionStatusLabel.setText("Connection: ");
         
-        mainTextArea.setEditable(false);
-        mainTextArea.setColumns(20);
-        mainTextArea.setRows(5);
-
+        publishTextPane.setEditable(false);
+        
         sendButton.setIcon(new ImageIcon(getClass().getResource("/images/edit.png")));
         sendButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -95,7 +128,11 @@ public class ChatView extends JFrame {
         });
         smileButton.setIcon(new ImageIcon(getClass().getResource("/images/smiley_smile.png"))); 
         smileButton.setPreferredSize(new java.awt.Dimension(80, 23));
-
+        smileButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				smileButtonClicked(e);
+			}
+		});
         attachButton.setIcon(new ImageIcon(getClass().getResource("/images/folder_document.png")));
         attachButton.setPreferredSize(new java.awt.Dimension(80, 23));
         attachButton.addActionListener(new ActionListener() {
@@ -107,7 +144,7 @@ public class ChatView extends JFrame {
         jScrollPane3.setViewportView(mainTextPane);
         jScrollPane2.setViewportView(mainTree);
         jScrollPane4.setViewportView(infoTextArea);
-        jScrollPane1.setViewportView(mainTextArea);
+        jScrollPane1.setViewportView(publishTextPane);
         
         this.mainTextPane.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent e) {
@@ -117,7 +154,6 @@ public class ChatView extends JFrame {
             }
         });
         
-        
         initMenuFile();
         initMenuParams();
         setJMenuBar(mainMenuBar);
@@ -126,17 +162,34 @@ public class ChatView extends JFrame {
         pack();
     }
     
+   
+	/**
+     * Этот метод реализует функцию отображения 
+     * статуса подключения. Основная логика в этом
+     * методе: работа с radioButton'ом.
+     * 
+     * @param e
+     */
     protected void connectionStatusChanged(ActionEvent e) {
-        if(this.connectionStatus.isSelected()){
-            this.connectionStatus.setText("Disconnected");
+        if(!this.connectionStatus.isSelected()){
+        	this.disconnectMenuItemClicked(e);
+        	this.connectionStatus.setText("Disconnected");
             this.connectionStatus.setSelected(false);
         } else{
+        	this.connectionStatus.setSelected(false); // Если это убрать - получится так, что даже если еще не подключились, радиобаттон будет отображать статус: Подключено
+        	/**
+        	 * TODO:// Здесь необходимо реализовать проверку на успешность подключения
+        	 */
+        	this.connectMenuItemClicked(e);
+        	
             this.connectionStatus.setText("Connected");
             this.connectionStatus.setSelected(true);
         }
     }
+    
     protected void sendButtonClicked(ActionEvent e) {
-        this.showErrorMessage("Send button clicked");
+    	this.addMessage(this.mainTextPane.getText());
+    	this.mainTextPane.insertIcon(new ImageIcon(getClass().getResource("/images/icon_sad.gif")));
     }
     protected void attachButtonClicked(ActionEvent e) {
         JFileChooser fc = new JFileChooser();
@@ -146,9 +199,8 @@ public class ChatView extends JFrame {
         }
         
     }
-    @Deprecated
     protected void exitMenuItemClicked(ActionEvent e) {
-        int reply = JOptionPane.showConfirmDialog(this, "Realy exit?", "Exit", JOptionPane.YES_NO_OPTION);
+        int reply = JOptionPane.showConfirmDialog(this, "Do you really want to exit?", "Exit", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION){
             /* TODO: 
              * 
@@ -159,17 +211,24 @@ public class ChatView extends JFrame {
             this.dispose();
         }
     }
-    
+    protected void smileButtonClicked(ActionEvent e) {
+    	if(this.smileChooser.isActive()){
+    		this.smileChooser.setVisible(false);
+    	} else{
+    		this.smileChooser.setVisible(true);
+    	}
+    	
+	}
     protected void disconnectMenuItemClicked(ActionEvent e) {
-        // TODO Auto-generated method stub
+        // TODO Реализация метода для закрытия соединения и т.д.
+    	
+    	this.showInformationMessage("Connection closed");
         
     }
     protected void connectMenuItemClicked(ActionEvent e) {
         ConnectionDialog con = new ConnectionDialog(this, true);
         con.setVisible(true);
-        
     }
-    
     
     protected void showErrorMessage(String message){
         JOptionPane.showMessageDialog(this, message,
@@ -226,12 +285,12 @@ public class ChatView extends JFrame {
         mainMenuBar.add(menuFile);
     }
   
-  
-    private void initElements(){
+    private void createElements(){
         smileButton = new JButton();
         attachButton = new JButton();
         sendButton = new JButton();
-        mainTextArea = new JTextArea();
+        publishTextPane = new JTextPane();
+        this.publishTextPane.setText("Life chat");
         mainTextPane = new JTextPane();
         infoTextArea = new JTextArea();
         connectionStatus = new JRadioButton();
@@ -246,7 +305,10 @@ public class ChatView extends JFrame {
         jScrollPane2 = new JScrollPane();
         jScrollPane3 = new JScrollPane();
         jScrollPane4 = new JScrollPane();
-        mainTree = new JTree();
+        
+        mainTree = new JTree(new DefaultMutableTreeNode("Users"));
+        smileChooser = new SmileChooser(this, false);
+        smileChooser.setLocationRelativeTo(this.sendButton);
         
         mainMenuBar = new JMenuBar();
         infoMenuItem = new JMenuItem();
@@ -259,10 +321,15 @@ public class ChatView extends JFrame {
         menuFile = new JMenu();
         menuParams = new JMenu();
     }
+
+    public JTextPane getMainTextPane(){
+    	return this.mainTextPane;
+    }
+   
+
     /**
      * This is auto-generated code
      */
-
     private void initLayouts(){
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

@@ -19,8 +19,6 @@ public class Client {
     public static void main(String[] args) throws UnsupportedLookAndFeelException {
         UIManager.setLookAndFeel(new AluminiumLookAndFeel());
         
-        
-        
         ChatView view = new ChatView();
         view.setVisible(true);
     }

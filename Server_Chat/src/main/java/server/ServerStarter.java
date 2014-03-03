@@ -1,8 +1,7 @@
 package server;
 
-import java.io.File;
-
-import server.utils.ServerUtil;
+import server.socketServer.SocketServer;
+import server.webSocketServer.WebSocketServer;
    
 /**
  * Этот класс является запускающим сервер. Для запуска сервера необходимо
@@ -12,37 +11,21 @@ import server.utils.ServerUtil;
  */
    
 public class ServerStarter{
-    private WebSocketServer server;
+    private WebSocketServer wsServer;
+    private SocketServer ssServer;
+    
     public ServerStarter(){
-        
-    }
-    public ServerStarter(ServerConfiguration configs){
-        if(configs == null){
-            initializeWithDefaultParams();
-        } else
-            initialize(configs);
+        this.wsServer =  new WebSocketServer();
+        this.ssServer = new SocketServer();
     }
     
-    
-    private void initialize(ServerConfiguration configs) {
-        
+    public void start(){
+        wsServer.start();
+        ssServer.start();
     }
-    private void initializeWithDefaultParams() {
-        
-    }
-    private void start() {
-        server.run();
-    }
-    
     
     public static void main(String[] args) {
-        File conf = new File("server-config.xml");
-        ServerConfiguration configs = null;
-        if(conf.exists())
-            configs = ServerUtil.parseServerConfigs(conf);
-        
-        ServerStarter server = new ServerStarter(configs);
-        
-        server.start();    
+        ServerStarter servers = new ServerStarter();
+        servers.start();    
     }
 }
