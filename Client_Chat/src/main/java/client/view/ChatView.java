@@ -44,7 +44,7 @@ public class ChatView extends JFrame {
     private JMenuItem connectMenuItem;
     private JMenuItem disconnectMenuItem;
     private JMenuItem exitMenuItem;
-    private JMenuItem infoMenuItem;
+    private JMenuItem aboutMenuItem;
     private JMenuItem chatSettingsMenuItems;
     private JMenuItem sysSettingsMenuItem;
     private JPanel jPanel1;
@@ -92,8 +92,6 @@ public class ChatView extends JFrame {
         this.addMessage("[Robot say:]  Hi, Almaz!");
         this.addMessage("[Almaz say:]  Hello world!");
         this.addMessage("[Robot say:]  Hi, Almaz!");
-        
-        
         
         this.infoTextArea.setText("Calendar and another informations");
     }
@@ -229,7 +227,10 @@ public class ChatView extends JFrame {
         ConnectionDialog con = new ConnectionDialog(this, true);
         con.setVisible(true);
     }
-    
+    protected void aboutMenuItemClicked(ActionEvent e){
+    	AboutFrame frame = new AboutFrame(this);
+		frame.setVisible(true);
+    }
     protected void showErrorMessage(String message){
         JOptionPane.showMessageDialog(this, message,
                 "Error",
@@ -251,8 +252,14 @@ public class ChatView extends JFrame {
         menuParams.add(sysSettingsMenuItem);
         menuParams.add(new JSeparator());
         mainMenuBar.add(menuParams);
-        infoMenuItem.setText("About");
-        menuParams.add(infoMenuItem);
+        aboutMenuItem.setText("About");
+        aboutMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				aboutMenuItemClicked(e);
+			}
+		});
+        
+        menuParams.add(aboutMenuItem);
     }
     private void initMenuFile() {
         menuFile.setText("File");
@@ -308,10 +315,9 @@ public class ChatView extends JFrame {
         
         mainTree = new JTree(new DefaultMutableTreeNode("Users"));
         smileChooser = new SmileChooser(this, false);
-        smileChooser.setLocationRelativeTo(this.sendButton);
         
         mainMenuBar = new JMenuBar();
-        infoMenuItem = new JMenuItem();
+        aboutMenuItem = new JMenuItem();
         connectMenuItem = new JMenuItem();
         disconnectMenuItem = new JMenuItem();
         chatSettingsMenuItems = new JMenuItem();

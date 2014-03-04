@@ -1,26 +1,38 @@
-package server;
+package server.socketServer;
 
-import server.socketServer.SocketServer;
-import server.webSocketServer.WebSocketServer;
+import java.io.File;
+import java.io.IOException;
+
+import logging.Logger;
    
 /**
  * Этот класс является запускающим сервер. Для запуска сервера необходимо
  * вызвать метод main(String[] args) этого класса
  * 
  * @author Almaz
+ * https://vk.com/almaz_kg
  */
    
 public class ServerStarter{
-    private WebSocketServer wsServer;
     private SocketServer ssServer;
     
+    /**
+     * Пока выпилена WebSocketServer-ная часть, поскольку его продвижение 
+     * остановилось
+     * 
+     */
     public ServerStarter(){
-        this.wsServer =  new WebSocketServer();
-        this.ssServer = new SocketServer();
+		try {
+			File logfile = new File("SocketServer.log");
+			Logger log = new Logger(logfile);
+			this.ssServer = new SocketServer(log);
+			
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
     }
     
     public void start(){
-        wsServer.start();
         ssServer.start();
     }
     

@@ -10,7 +10,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle;
@@ -30,13 +29,17 @@ public class SmileChooser extends JDialog {
 	
 	private boolean isActive;
 	
-	public SmileChooser(JFrame parent, boolean modal) {
+	public SmileChooser(ChatView parent, boolean modal) {
 		super(parent, modal);
 		this.parent = (ChatView)parent;
-		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setResizable(false);
+		this.setLocationRelativeTo(parent);
+		this.setLocationByPlatform(true);
+		this.setLocation(265, 440);
 		initComponents();
 	}
+
 
 	@Override
 	public void setVisible(boolean b) {

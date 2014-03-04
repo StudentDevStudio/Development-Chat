@@ -1,8 +1,6 @@
-/**
- * 
- */
+
 /**
  * @author Almaz
  * 
  */
-package server;
+package message;
