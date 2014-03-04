@@ -107,7 +107,7 @@ public class ChatView extends JFrame {
         this.setTitle("Life chat");
         this.setIconImage(new ImageIcon(getClass().getResource("/images/comments.png")).getImage());
         this.setResizable(false);
-        this.setLocationRelativeTo(null);
+        this.setLocation(250,150);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         connectionStatus.addActionListener(new ActionListener() {
