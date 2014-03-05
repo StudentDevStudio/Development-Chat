@@ -1,9 +1,11 @@
 package client.view;
 
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -26,6 +28,10 @@ import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import message.Message;
+import users.User;
+import client.model.ChatModel;
+
 /**
  * Главный клиентский интерфейс
  * 
@@ -40,6 +46,7 @@ public class ChatView extends JFrame {
     private JButton attachButton;
     private JMenu menuFile;
     private JMenu menuParams;
+    private JMenu menuAbout;
     private JMenuBar mainMenuBar;
     private JMenuItem connectMenuItem;
     private JMenuItem disconnectMenuItem;
@@ -55,55 +62,32 @@ public class ChatView extends JFrame {
     private JScrollPane jScrollPane2;
     private JScrollPane jScrollPane3;
     private JScrollPane jScrollPane4;
+    
     private JTextPane publishTextPane;
-    private JTextArea infoTextArea;
     private JTextPane mainTextPane;
+    private JTextArea infoTextArea;
+    
     private JTree mainTree;
     private SmileChooser smileChooser;
+	private ChatModel chatModel;
+    private User user;
+	private boolean isAuthorized;
     
-    public ChatView() {
+ 
+	public ChatView() {
         initComponents();
-        
-        this.addMessage("[Almaz say:]  Hello world!");
-        this.addMessage("[Robot say:]  Hi, Almaz!");
-        this.addMessage("[Almaz say:]  Hello world!");
-        this.addMessage("[Robot say:]  Hi, Almaz!");
-        this.addMessage("[Almaz say:]  Hello world!");
-        this.addMessage("[Robot say:]  Hi, Almaz!");
-        this.addMessage("[Almaz say:]  Hello world!");
-        this.addMessage("[Robot say:]  Hi, Almaz!");
-        this.addMessage("[Almaz say:]  Hello world!");
-        this.addMessage("[Robot say:]  Hi, Almaz!");
-        this.addMessage("[Almaz say:]  Hello world!");
-        this.addMessage("[Robot say:]  Hi, Almaz!");
-        this.addMessage("[Almaz say:]  Hello world!");
-        this.addMessage("[Robot say:]  Hi, Almaz!");
-        this.addMessage("[Almaz say:]  Hello world!");
-        this.addMessage("[Robot say:]  Hi, Almaz!");
-        this.addMessage("[Almaz say:]  Hello world!");
-        this.addMessage("[Robot say:]  Hi, Almaz!");
-        this.addMessage("[Almaz say:]  Hello world!");
-        this.addMessage("[Robot say:]  Hi, Almaz!");
-        this.addMessage("[Almaz say:]  Hello world!");
-        this.addMessage("[Robot say:]  Hi, Almaz!");
-        this.addMessage("[Almaz say:]  Hello world!");
-        this.addMessage("[Robot say:]  Hi, Almaz!");
-        this.addMessage("[Almaz say:]  Hello world!");
-        this.addMessage("[Robot say:]  Hi, Almaz!");
-        this.addMessage("[Almaz say:]  Hello world!");
-        this.addMessage("[Robot say:]  Hi, Almaz!");
-        
-        this.infoTextArea.setText("Calendar and another informations");
+    
+        this.infoTextArea.setText("Calendar or another text");
     }
     
-    private void addMessage(String message) {
+    public void publishMessage(String message) {
 		String text = this.publishTextPane.getText();
 		this.publishTextPane.setText(text + "\n" + message);
 	}
 	private void initComponents() {
         createElements();
         this.setTitle("Life chat");
-        this.setIconImage(new ImageIcon(getClass().getResource("/images/comments.png")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("/images/icons/comments.png")).getImage());
         this.setResizable(false);
         this.setLocation(250,150);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -118,20 +102,20 @@ public class ChatView extends JFrame {
         
         publishTextPane.setEditable(false);
         
-        sendButton.setIcon(new ImageIcon(getClass().getResource("/images/edit.png")));
+        sendButton.setIcon(new ImageIcon(getClass().getResource("/images/icons/edit.png")));
         sendButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 sendButtonClicked(e);
             }
         });
-        smileButton.setIcon(new ImageIcon(getClass().getResource("/images/smiley_smile.png"))); 
+        smileButton.setIcon(new ImageIcon(getClass().getResource("/images/icons/smiley_smile.png"))); 
         smileButton.setPreferredSize(new java.awt.Dimension(80, 23));
         smileButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				smileButtonClicked(e);
 			}
 		});
-        attachButton.setIcon(new ImageIcon(getClass().getResource("/images/folder_document.png")));
+        attachButton.setIcon(new ImageIcon(getClass().getResource("/images/icons/folder_document.png")));
         attachButton.setPreferredSize(new java.awt.Dimension(80, 23));
         attachButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -144,16 +128,9 @@ public class ChatView extends JFrame {
         jScrollPane4.setViewportView(infoTextArea);
         jScrollPane1.setViewportView(publishTextPane);
         
-        this.mainTextPane.addKeyListener(new KeyAdapter() {
-            public void keyReleased(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_ENTER){
-                    showInformationMessage("Enter pressed");
-                }
-            }
-        });
-        
         initMenuFile();
         initMenuParams();
+        initAboutMenu();
         setJMenuBar(mainMenuBar);
         
         initLayouts();
@@ -175,21 +152,36 @@ public class ChatView extends JFrame {
             this.connectionStatus.setSelected(false);
         } else{
         	this.connectionStatus.setSelected(false); // Если это убрать - получится так, что даже если еще не подключились, радиобаттон будет отображать статус: Подключено
-        	/**
-        	 * TODO:// Здесь необходимо реализовать проверку на успешность подключения
-        	 */
+        
         	this.connectMenuItemClicked(e);
-        	
-            this.connectionStatus.setText("Connected");
-            this.connectionStatus.setSelected(true);
+        	/**
+        	 * TODO: Здесь необходимо реализовать проверку на успешность подключения, пока реализован костыль
+        	 * 
+        	 */
+        	if(this.isAuthorized){
+        		this.connectionStatus.setText("Connected");
+        		this.connectionStatus.setSelected(true);
+        	}
         }
     }
     
     protected void sendButtonClicked(ActionEvent e) {
-    	this.addMessage(this.mainTextPane.getText());
-    	this.mainTextPane.insertIcon(new ImageIcon(getClass().getResource("/images/icon_sad.gif")));
+    	this.sendMessageToServer();
     }
-    protected void attachButtonClicked(ActionEvent e) {
+    protected void sendMessageToServer() {
+		try {
+			if(this.isAuthorized){
+				String message = this.mainTextPane.getText();
+				this.chatModel.sendMessage(new Message(user, message));
+			} else{
+				this.showErrorMessage("You are not authorized");
+			}
+		} catch (IOException e) {
+			this.showErrorMessage(e.getMessage());
+		}
+	}
+
+	protected void attachButtonClicked(ActionEvent e) {
         JFileChooser fc = new JFileChooser();
         
         if(fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
@@ -210,12 +202,14 @@ public class ChatView extends JFrame {
         }
     }
     protected void smileButtonClicked(ActionEvent e) {
-    	if(this.smileChooser.isActive()){
+    	Point pos = this.getLocationOnScreen();
+		smileChooser.setLocation(pos.x + 15, pos.y + 290);
+    	
+		if(this.smileChooser.isActive()){
     		this.smileChooser.setVisible(false);
     	} else{
     		this.smileChooser.setVisible(true);
     	}
-    	
 	}
     protected void disconnectMenuItemClicked(ActionEvent e) {
         // TODO Реализация метода для закрытия соединения и т.д.
@@ -228,9 +222,26 @@ public class ChatView extends JFrame {
         con.setVisible(true);
     }
     protected void aboutMenuItemClicked(ActionEvent e){
-    	AboutFrame frame = new AboutFrame(this);
+    	About frame = new About(this, true);
+    	Point pos = this.getLocationOnScreen();
+    	pos.x += 200;
+    	pos.y += 160;
+    	
+    	frame.setLocation(pos);
 		frame.setVisible(true);
     }
+    
+    public void setChatModel(ChatModel model) {
+		this.chatModel = model;
+	}
+    public boolean isAuthorized() {
+ 		return isAuthorized;
+ 	}
+ 	public void setAuthorized(boolean isAuthorized) {
+ 		this.isAuthorized = isAuthorized;
+ 	}
+
+    
     protected void showErrorMessage(String message){
         JOptionPane.showMessageDialog(this, message,
                 "Error",
@@ -242,6 +253,18 @@ public class ChatView extends JFrame {
                 JOptionPane.PLAIN_MESSAGE);
     }
     
+    private void initAboutMenu(){
+    	menuAbout.setText("About");
+    	menuAbout.add(aboutMenuItem);
+    	aboutMenuItem.setText("About");
+        aboutMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				aboutMenuItemClicked(e);
+			}
+		});
+        
+        mainMenuBar.add(menuAbout);
+    }
     private void initMenuParams() {
         menuParams.setText("Settings");
 
@@ -251,15 +274,9 @@ public class ChatView extends JFrame {
         sysSettingsMenuItem.setText("System Settings");
         menuParams.add(sysSettingsMenuItem);
         menuParams.add(new JSeparator());
-        mainMenuBar.add(menuParams);
-        aboutMenuItem.setText("About");
-        aboutMenuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				aboutMenuItemClicked(e);
-			}
-		});
         
-        menuParams.add(aboutMenuItem);
+        
+        mainMenuBar.add(menuParams);
     }
     private void initMenuFile() {
         menuFile.setText("File");
@@ -326,6 +343,7 @@ public class ChatView extends JFrame {
         
         menuFile = new JMenu();
         menuParams = new JMenu();
+        menuAbout = new JMenu();
     }
 
     public JTextPane getMainTextPane(){
@@ -437,6 +455,8 @@ public class ChatView extends JFrame {
                 .addContainerGap())
         );
     }
+
+	
 }
 
 

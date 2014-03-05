@@ -36,10 +36,11 @@ public class ClientThread implements Runnable {
 		this.isAlive = true;
     }
    
-    public void publish(Message message) throws IOException{
+    public void send(Message message) throws IOException{
     	this.outputStream.writeObject(message);
     }
     public void run() {
+    	System.out.println("Client thread started");
     	// Пока не выключили
     	while(this.isAlive){
 			try {
@@ -49,7 +50,7 @@ public class ClientThread implements Runnable {
 				// Что за сообщение пришло?!
 				if (message instanceof AuthorizationMessage) {
 					authorizeUser((AuthorizationMessage)message);
-				} if (message instanceof RegistrationMessage) {
+				} else if (message instanceof RegistrationMessage) {
 					registerNewUser((RegistrationMessage)message);
 				} else {
 					if (this.isAuthorized) {
@@ -65,11 +66,19 @@ public class ClientThread implements Runnable {
 	}
 
     private void authorizeUser(AuthorizationMessage message) throws IOException {
-		if(this.server.autorizeUser(message.getLogin(), message.getPass())){
+		User res = this.server.autorizeUser(message.getLogin(), message.getPass());
+    	if(res != null){
+    		this.user = res;
+    		
+    		// Передаем клиенту - авторизационное сообщение 
+			Message msg = new Message("OK");
+			this.send(msg);
+			
+			// Инициализируемся
 			initialize();
 		} else {
 			// Отправляем сообщение о том что авторизация не удалась
-			this.outputStream.writeObject(new ErrorMessage("Authorization failed"));
+			this.send(new ErrorMessage("Authorization failed"));
 		}
 	}
 	private void registerNewUser(RegistrationMessage message) throws IOException {

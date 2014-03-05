@@ -12,13 +12,12 @@ import java.io.Serializable;
  * @author Almaz
  *         https://vk.com/almaz_kg
  */
+
 @XmlType(propOrder = {"login", "password"})
 public class User implements Serializable {
-    private String login;
+	private static final long serialVersionUID = -7842053450337947301L;
+	private String login;
     private String pass;
-
-    public User() {
-    }
 
     public void setLogin(String login) {
         this.login = login;

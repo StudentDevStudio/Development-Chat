@@ -19,14 +19,12 @@ public class ServerStarter{
     /**
      * Пока выпилена WebSocketServer-ная часть, поскольку его продвижение 
      * остановилось
-     * 
      */
     public ServerStarter(){
 		try {
 			File logfile = new File("SocketServer.log");
 			Logger log = new Logger(logfile);
 			this.ssServer = new SocketServer(log);
-			
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
@@ -34,6 +32,7 @@ public class ServerStarter{
     
     public void start(){
         ssServer.start();
+        System.out.println("Socket server startded");
     }
     
     public static void main(String[] args) {

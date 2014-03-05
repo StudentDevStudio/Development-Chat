@@ -27,11 +27,12 @@ import javax.swing.LayoutStyle;
 public class AboutFrame extends JDialog {
 	private static final long serialVersionUID = 676025796012997264L;
 
-	public AboutFrame(JFrame parent) {
+	public AboutFrame(JFrame parent, boolean modal) {
+		this.setModal(modal);
         this.setLocationRelativeTo(parent);
 		this.setResizable(false);
         this.setTitle("About");
-        this.setIconImage(new ImageIcon(getClass().getResource("/images/about.png")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("/images/global_telecom.png")).getImage());
         
         initComponents();
 
@@ -53,24 +54,7 @@ public class AboutFrame extends JDialog {
 			}
 		});
 
-		jLabel4.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				try {
-					Desktop.getDesktop().browse(
-							new URI("https://vk.com/almaz_kg"));
-				} catch (URISyntaxException ex) {
-					Logger.getLogger(AboutFrame.class.getName()).log(
-							Level.SEVERE, null, ex);
-				} catch (IOException ex) {
-					Logger.getLogger(AboutFrame.class.getName()).log(
-							Level.SEVERE, null, ex);
-				}
-			}
-			public void mouseEntered(MouseEvent e) {
-				jLabel4.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			}
-		});
-        
+		
         jLabel6.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				try {
@@ -105,13 +89,10 @@ public class AboutFrame extends JDialog {
         jLabel2.setText("Чат-клиент");
 
         jLabel3.setForeground(new java.awt.Color(102, 102, 255));
-        jLabel3.setText("Илья Котов");
-
-        jLabel4.setForeground(new java.awt.Color(102, 102, 255));
-        jLabel4.setText("Almaz Мурзабеков");
+        jLabel3.setText("Development Studio");
 
         jLabel6.setForeground(new java.awt.Color(102, 102, 255));
-        jLabel6.setText("StudentDevStudio, 2014");
+        jLabel6.setText("2014");
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

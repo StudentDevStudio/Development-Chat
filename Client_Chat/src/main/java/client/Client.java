@@ -16,10 +16,15 @@ import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
  */
 
 public class Client {
-    public static void main(String[] args) throws UnsupportedLookAndFeelException {
-        UIManager.setLookAndFeel(new AluminiumLookAndFeel());
-        
-        ChatView view = new ChatView();
-        view.setVisible(true);
+    public static void main(String[] args){
+    	try{
+	        UIManager.setLookAndFeel(new AluminiumLookAndFeel());
+	        
+	        ChatView view = new ChatView();
+	        view.setVisible(true);
+    	} catch(UnsupportedLookAndFeelException e){
+    		System.out.println(e.getMessage());
+    	}
+    	
     }
 }

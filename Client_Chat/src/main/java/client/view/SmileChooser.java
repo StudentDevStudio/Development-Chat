@@ -83,30 +83,30 @@ public class SmileChooser extends JDialog {
 		this.buttons = new ArrayList<JButton>();
 		
 		
-		jButton1.setIcon(new ImageIcon(getClass().getResource("/images/icon_smile.gif")));
-		jButton2.setIcon(new ImageIcon(getClass().getResource("/images/icon_wink.gif")));
-		jButton3.setIcon(new ImageIcon(getClass().getResource("/images/icon_wave.gif")));
-		jButton4.setIcon(new ImageIcon(getClass().getResource("/images/icon_biggrin.gif")));
-		jButton5.setIcon(new ImageIcon(getClass().getResource("/images/icon_neutral.gif")));
-		jButton6.setIcon(new ImageIcon(getClass().getResource("/images/icon_cheesygrin.gif")));
-		jButton7.setIcon(new ImageIcon(getClass().getResource("/images/icon_clap.gif")));
-		jButton8.setIcon(new ImageIcon(getClass().getResource("/images/icon_thumbup.gif")));
-		jButton9.setIcon(new ImageIcon(getClass().getResource("/images/icon_lol.gif")));
-		jButton10.setIcon(new ImageIcon(getClass().getResource("/images/icon_rolleyes.gif")));
-		jButton11.setIcon(new ImageIcon(getClass().getResource("/images/icon_sad.gif")));
-		jButton12.setIcon(new ImageIcon(getClass().getResource("/images/icon_surprised.gif")));
-		jButton13.setIcon(new ImageIcon(getClass().getResource("/images/icon_think.gif")));
-		jButton14.setIcon(new ImageIcon(getClass().getResource("/images/icon_wtf.gif")));
-		jButton15.setIcon(new ImageIcon(getClass().getResource("/images/icon_confused.gif")));
-		jButton16.setIcon(new ImageIcon(getClass().getResource("/images/icon_cool.gif")));
-		jButton17.setIcon(new ImageIcon(getClass().getResource("/images/icon_crazy.gif")));
-		jButton18.setIcon(new ImageIcon(getClass().getResource("/images/icon_cry.gif")));
-		jButton19.setIcon(new ImageIcon(getClass().getResource("/images/icon_shh.gif")));
-		jButton20.setIcon(new ImageIcon(getClass().getResource("/images/icon_eek.gif")));
-		jButton21.setIcon(new ImageIcon(getClass().getResource("/images/icon_problem.gif")));
-		jButton22.setIcon(new ImageIcon(getClass().getResource("/images/icon_question.gif")));
-		jButton23.setIcon(new ImageIcon(getClass().getResource("/images/icon_razz.gif")));
-		jButton24.setIcon(new ImageIcon(getClass().getResource("/images/icon_thumbdown.gif")));
+		jButton1.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_smile.gif")));
+		jButton2.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_wink.gif")));
+		jButton3.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_wave.gif")));
+		jButton4.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_biggrin.gif")));
+		jButton5.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_neutral.gif")));
+		jButton6.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_cheesygrin.gif")));
+		jButton7.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_clap.gif")));
+		jButton8.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_thumbup.gif")));
+		jButton9.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_lol.gif")));
+		jButton10.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_rolleyes.gif")));
+		jButton11.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_sad.gif")));
+		jButton12.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_surprised.gif")));
+		jButton13.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_think.gif")));
+		jButton14.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_wtf.gif")));
+		jButton15.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_confused.gif")));
+		jButton16.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_cool.gif")));
+		jButton17.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_crazy.gif")));
+		jButton18.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_cry.gif")));
+		jButton19.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_shh.gif")));
+		jButton20.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_eek.gif")));
+		jButton21.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_problem.gif")));
+		jButton22.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_question.gif")));
+		jButton23.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_razz.gif")));
+		jButton24.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_thumbdown.gif")));
 		
 		
 		this.buttons.add(jButton1);
@@ -176,7 +176,6 @@ public class SmileChooser extends JDialog {
 	private JPanel jPanel1;
 	private JScrollPane jScrollPane1;
 	
-
 	private void setImageToParentField(Icon icon) {
 		this.parent.getMainTextPane().insertIcon(icon);
 	}
