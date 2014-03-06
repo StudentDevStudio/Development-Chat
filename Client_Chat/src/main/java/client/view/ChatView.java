@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import javax.swing.AbstractAction;
 import javax.swing.GroupLayout;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -31,6 +32,7 @@ import javax.swing.WindowConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import message.Message;
+import message.PingMessage;
 import users.User;
 import client.model.ChatModel;
 
@@ -72,8 +74,7 @@ public class ChatView extends JFrame {
     private JTree mainTree;
     private SmileChooser smileChooser;
 	private ChatModel chatModel;
-    private User user;
-	private boolean isAuthorized;
+    
     
  
 	public ChatView() {
@@ -96,8 +97,10 @@ public class ChatView extends JFrame {
         
         mainTextPane.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,2), "enter");
         mainTextPane.getActionMap().put("enter", new AbstractAction() {
-        	public void actionPerformed(ActionEvent arg0) {
-              sendMessageToServer();
+        	private static final long serialVersionUID = -2615341909557131301L;
+
+			public void actionPerformed(ActionEvent e) {
+				sendButtonClicked(e);
            	}
         });
 
@@ -106,8 +109,8 @@ public class ChatView extends JFrame {
                 connectionStatusChanged(e);
             }
         });
-        connectionStatus.setText("Disconnected");
-        constConnectionStatusLabel.setText("Connection: ");
+        
+        constConnectionStatusLabel.setText("Connection status: ");
         
         publishTextPane.setEditable(false);
         
@@ -157,7 +160,6 @@ public class ChatView extends JFrame {
     protected void connectionStatusChanged(ActionEvent e) {
         if(!this.connectionStatus.isSelected()){
         	this.disconnectMenuItemClicked(e);
-        	this.connectionStatus.setText("Disconnected");
             this.connectionStatus.setSelected(false);
         } else{
         	this.connectionStatus.setSelected(false); // Если это убрать - получится так, что даже если еще не подключились, радиобаттон будет отображать статус: Подключено
@@ -167,28 +169,30 @@ public class ChatView extends JFrame {
         	 * TODO: Здесь необходимо реализовать проверку на успешность подключения, пока реализован костыль
         	 * 
         	 */
-        	if(this.isAuthorized){
-        		this.connectionStatus.setText("Connected");
+        	if(this.chatModel.isAuthorized()){
         		this.connectionStatus.setSelected(true);
+        		this.chatModel.setConnected(true);
         	}
         }
     }
     
     protected void sendButtonClicked(ActionEvent e) {
-    	this.sendMessageToServer();
-    }
-    protected void sendMessageToServer() {
-		try {
-			if(this.isAuthorized){
-				String message = this.mainTextPane.getText();
-				this.chatModel.sendMessage(new Message(user, message));
+    	try {
+			if(this.chatModel.isConnected()){
+				if (this.chatModel.isAuthorized()) {
+					String message = this.mainTextPane.getText();
+					this.chatModel.sendMessage(new Message(chatModel.getUser(), message));
+					this.mainTextPane.setText("");
+				} else {
+					this.showErrorMessage("You are not authorized");
+				}
 			} else{
-				this.showErrorMessage("You are not authorized");
+				this.showErrorMessage("You are not connected");
 			}
-		} catch (IOException e) {
-			this.showErrorMessage(e.getMessage());
+		} catch (IOException ex) {
+			this.showErrorMessage(ex.getMessage());
 		}
-	}
+    }
 
 	protected void attachButtonClicked(ActionEvent e) {
         JFileChooser fc = new JFileChooser();
@@ -201,12 +205,12 @@ public class ChatView extends JFrame {
     protected void exitMenuItemClicked(ActionEvent e) {
         int reply = JOptionPane.showConfirmDialog(this, "Do you really want to exit?", "Exit", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION){
-            /* TODO: 
-             * 
-             * Не забудь потом закрыть все открытые соединения.
-             * Сохранить изменения и т.д.
-             * 
-            */
+        	if(this.chatModel.isConnected())
+				try {
+					this.chatModel.close();
+				} catch (IOException ex) {
+					this.showErrorMessage(ex.getMessage());
+				}
             this.dispose();
         }
     }
@@ -221,12 +225,19 @@ public class ChatView extends JFrame {
     	}
 	}
     protected void disconnectMenuItemClicked(ActionEvent e) {
-        // TODO Реализация метода для закрытия соединения и т.д.
-    	
-    	this.showInformationMessage("Connection closed");
-        
+    	 try {
+         	if(this.chatModel.isConnected()){
+ 				this.chatModel.close();
+ 				this.chatModel.setConnected(false);
+ 				this.showInformationMessage("Connection closed");
+         	}
+ 		} catch (IOException ex) {
+ 			this.showErrorMessage(ex.getMessage());
+ 		}
     }
-    protected void connectMenuItemClicked(ActionEvent e) {
+   
+
+	protected void connectMenuItemClicked(ActionEvent e) {
         ConnectionDialog con = new ConnectionDialog(this, true);
         con.setVisible(true);
     }
@@ -243,20 +254,13 @@ public class ChatView extends JFrame {
     public void setChatModel(ChatModel model) {
 		this.chatModel = model;
 	}
-    public boolean isAuthorized() {
- 		return isAuthorized;
- 	}
- 	public void setAuthorized(boolean isAuthorized) {
- 		this.isAuthorized = isAuthorized;
- 	}
-
-    
-    protected void showErrorMessage(String message){
+	
+    public void showErrorMessage(String message){
         JOptionPane.showMessageDialog(this, message,
                 "Error",
                 JOptionPane.ERROR_MESSAGE);
     }
-    protected void showInformationMessage(String message){
+    public void showInformationMessage(String message){
         JOptionPane.showMessageDialog(this, message,
                 "Information message",
                 JOptionPane.PLAIN_MESSAGE);
@@ -354,11 +358,10 @@ public class ChatView extends JFrame {
         menuParams = new JMenu();
         menuAbout = new JMenu();
     }
-
-    public JTextPane getMainTextPane(){
-    	return this.mainTextPane;
+    public void insertIconToTextPane(Icon icon) {
+        this.mainTextPane.insertIcon(icon);
     }
-   
+    
 
     /**
      * This is auto-generated code
@@ -465,7 +468,11 @@ public class ChatView extends JFrame {
         );
     }
 
-	
+  
+
+   
+
+  
 }
 
 

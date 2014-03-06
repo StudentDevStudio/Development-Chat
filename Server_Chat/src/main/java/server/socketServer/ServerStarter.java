@@ -21,22 +21,26 @@ public class ServerStarter{
      * остановилось
      */
     public ServerStarter(){
-		try {
-			File logfile = new File("SocketServer.log");
-			Logger log = new Logger(logfile);
-			this.ssServer = new SocketServer(log);
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
+		
     }
     
     public void start(){
-        ssServer.start();
-        System.out.println("Socket server startded");
-    }
+    	Logger log = null;
+		try {
+			File logfile = new File("SocketServer.log");
+			log = new Logger(logfile);
+			this.ssServer = new SocketServer(log);
+			ssServer.start();
+			System.out.println("Socket server startded");
+		} catch(IOException e){
+			System.out.println(e.getMessage());
+		}finally {
+			log.close();
+			System.out.println("Log file closed");
+		}
+	}
     
     public static void main(String[] args) {
-        ServerStarter servers = new ServerStarter();
-        servers.start();    
+        new ServerStarter().start();
     }
 }

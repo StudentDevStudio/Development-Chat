@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.List;
 
 import message.AuthorizationMessage;
 import message.ErrorMessage;
@@ -38,6 +39,11 @@ public class ClientThread implements Runnable {
    
     public void send(Message message) throws IOException{
     	this.outputStream.writeObject(message);
+    	this.outputStream.flush();
+    }
+    public void send(List<Message> messages) throws IOException{
+    	this.outputStream.writeObject(messages);
+    	this.outputStream.flush();
     }
     public void run() {
     	System.out.println("Client thread started");
@@ -45,7 +51,13 @@ public class ClientThread implements Runnable {
     	while(this.isAlive){
 			try {
 				// Читаем Message из потока
-				Message message = (Message) inputStream.readObject();
+				
+				// - Ошибка - че за нах! Откуда здесь берется String?
+				Object o = inputStream.readObject();
+				if(o instanceof String){
+					System.out.println((String)o);
+				}
+				Message message = (Message) o; 
 				System.out.println("Get a message: " + message.getMessage());
 				// Что за сообщение пришло?!
 				if (message instanceof AuthorizationMessage) {
@@ -76,25 +88,28 @@ public class ClientThread implements Runnable {
 			
 			// Инициализируемся
 			initialize();
+			System.out.println(this.user.getLogin() + " authorized");
 		} else {
 			// Отправляем сообщение о том что авторизация не удалась
 			this.send(new ErrorMessage("Authorization failed"));
 		}
 	}
-	private void registerNewUser(RegistrationMessage message) throws IOException {
-		if(this.server.registerNewUser(message)){
+    private void registerNewUser(RegistrationMessage message) throws IOException {
+		User user = new User(message.getLogin(), message.getPass());
+		if(this.server.registerNewUser(user)){
+			this.user = user;
 			// Передаем юзеру что регистрация успешно прошла
-			this.outputStream.writeObject(new Message("Registration successfull"));
+			this.send(new Message("Registration successfull"));
 			
 			initialize();
 		} else{
-			this.outputStream.writeObject(new ErrorMessage("Registration failed"));
+			this.send(new ErrorMessage("Registration failed"));
 		}
 	}
 	private void initialize() throws IOException {
 		this.isAuthorized = true;
 		// Отправляем новичку историю чата
-		this.outputStream.writeObject(server.getChatHistory());
+		//this.send(server.getChatHistory());
 		
 		// И сообщаем всем клиентам, что подключился новый пользователь
 		server.sendToActiveUsers(new Message("The user "

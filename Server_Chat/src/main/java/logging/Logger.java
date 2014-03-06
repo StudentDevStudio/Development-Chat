@@ -53,12 +53,13 @@ public class Logger {
 		this.writer.flush();
 	}
 	
-	
 	public File getLogFile() {
 		return logFile;
 	}
 	public void setLogFile(File logFile) {
 		this.logFile = logFile;
 	}
-	
+	public void close(){
+		this.writer.close();
+	}
 }

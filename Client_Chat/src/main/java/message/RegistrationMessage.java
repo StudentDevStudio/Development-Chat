@@ -15,11 +15,10 @@ public class RegistrationMessage extends Message {
 	private String login;
 	private String pass;
 	
-	public RegistrationMessage(){
-		super(null,  "");
-	}
 	public RegistrationMessage(String login, String pass){
-		super(null, "");
+		super(null, "Registration message");
+		this.login = login;
+		this.pass = pass;
 	}
 	
 	

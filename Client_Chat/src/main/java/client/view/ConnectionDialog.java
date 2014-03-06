@@ -1,11 +1,13 @@
 package client.view;
 
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -18,6 +20,7 @@ import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 
 import message.AuthorizationMessage;
+import users.User;
 import client.model.ChatModel;
 
 /**
@@ -44,12 +47,21 @@ public class ConnectionDialog extends JDialog {
     
     public ConnectionDialog(JFrame parent, boolean modal) {
         super(parent, modal);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        
         this.parent = (ChatView) parent;
         this.setTitle("Connection");
-        this.setLocationRelativeTo(parent);
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        this.setResizable(false);
-        this.getRootPane().setDefaultButton(this.connectButton);
+        
+        
+        Point pos = this.parent.getLocationOnScreen();
+        pos.x += 250;
+        pos.y += 120;
+        
+        this.setLocation(pos);;
+        
+        
+        this.setIconImage(new ImageIcon(getClass().getResource("/images/icons/bullet_connect.png")).getImage());
+        
         initComponents();
     }          
     
@@ -59,6 +71,9 @@ public class ConnectionDialog extends JDialog {
         portTextField = new JTextField();
         loginTextField = new JTextField();
         passwordTextField = new JPasswordField();
+        
+        this.hostTextField.setText("localhost");
+        this.portTextField.setText("81");
         
         constHostLabel = new JLabel();
         constLoginLabel = new JLabel();
@@ -98,7 +113,7 @@ public class ConnectionDialog extends JDialog {
 			int port = Integer.parseInt(this.portTextField.getText());
 			
 			// Получаем chat-model - коннектимся
-			ChatModel model = ChatModel.connect(host, port);
+			ChatModel model = ChatModel.connect(host, port, parent);
 			if(model != null){
 				String login = this.loginTextField.getText();
 				String pass = new String(this.passwordTextField.getPassword());
@@ -108,12 +123,14 @@ public class ConnectionDialog extends JDialog {
 				
 				// Пытаемся авторизоваться
 				if(model.authorize(message)){
+				    // Авторизация успешна
 					// Далее устанавливаем ChatModel - для ChatView'a
+				    model.setAuthorized(true);
+				    model.setConnected(true);
+				    model.setUser(new User(login, pass));
 					this.parent.setChatModel(model);
-					this.parent.setAuthorized(true);
-					
 					this.showInformationMessage("Connected");
-					
+					model.startServerListening();
 					// Закрываем данный фрейм
 					this.dispose();
 				} else{
@@ -127,11 +144,11 @@ public class ConnectionDialog extends JDialog {
 		}
 	}
 
-   
-
 	protected void registerButtonClicked(ActionEvent e) {
-		// TODO Auto-generated method stub
+		RegistrationDialog reg = new RegistrationDialog(this.parent,  true);
 		
+		this.dispose();
+		reg.setVisible(true);
 	}
 	
 	protected void showErrorMessage(String message) {
@@ -142,9 +159,6 @@ public class ConnectionDialog extends JDialog {
 		JOptionPane.showMessageDialog(this, message, "Information message",
 				JOptionPane.PLAIN_MESSAGE);
 	}
-	
-
-
 
 	/**
      * This is auto-generated code!

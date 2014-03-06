@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -17,8 +16,18 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 
 /**
+ * '
  * Этот класс реализует логику отображения и выбора смайлов. Причем, этот класс
  * должен предоставлять возможность "легкой" загрузки смайлов из хранилища
+ * 
+ * @author Almaz
+ */
+@Deprecated
+/**
+ * Переписать
+ * 
+ * Количество и пути к иконкам должны браться из
+ * внешнего конфигурационного файла, как вариант xml-file 
  * 
  * @author Almaz
  */
@@ -31,6 +40,7 @@ public class SmileChooser extends JDialog {
 	
 	public SmileChooser(ChatView parent, boolean modal) {
 		super(parent, modal);
+		this.setTitle("Smiles");
 		this.parent = (ChatView)parent;
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setResizable(false);
@@ -82,7 +92,7 @@ public class SmileChooser extends JDialog {
 		
 		this.buttons = new ArrayList<JButton>();
 		
-		
+		/*
 		jButton1.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_smile.gif")));
 		jButton2.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_wink.gif")));
 		jButton3.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_wave.gif")));
@@ -108,7 +118,7 @@ public class SmileChooser extends JDialog {
 		jButton23.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_razz.gif")));
 		jButton24.setIcon(new ImageIcon(getClass().getResource("/images/icons/icon_thumbdown.gif")));
 		
-		
+		*/
 		this.buttons.add(jButton1);
 		this.buttons.add(jButton2);
 		this.buttons.add(jButton3);
@@ -177,7 +187,7 @@ public class SmileChooser extends JDialog {
 	private JScrollPane jScrollPane1;
 	
 	private void setImageToParentField(Icon icon) {
-		this.parent.getMainTextPane().insertIcon(icon);
+	    this.parent.insertIconToTextPane(icon);
 	}
 
 	private void initButtons(){

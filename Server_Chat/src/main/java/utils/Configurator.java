@@ -12,8 +12,8 @@ public class Configurator {
 		}
 		return instance;
 	}
-
+	//UPD: Все системные файлы хранятся в system_files
 	public String getUserFilePath() {
-		return "users.xml";
+		return "system_files/users.xml";
 	}
 }

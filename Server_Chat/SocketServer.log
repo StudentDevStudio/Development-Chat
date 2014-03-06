@@ -1,6 +1,22 @@
-[INFO] 2014:03:05 07:15:07 MSK
+[ERROR] 2014:03:07 02:15:34 MSK
+com.sun.xml.internal.bind.v2.runtime.IllegalAnnotationsException: 2 counts of IllegalAnnotationExceptions
+Property pass is present but not specified in @XmlType.propOrder
+	this problem is related to the following location:
+		at public java.lang.String users.User.getPass()
+		at users.User
+		at public java.util.List users.UsersData.getUsers()
+		at users.UsersData
+Property password appears in @XmlType.propOrder, but no such property exists. Maybe you meant pass?
+	this problem is related to the following location:
+		at users.User
+		at public java.util.List users.UsersData.getUsers()
+		at users.UsersData
+
+[INFO] 2014:03:07 02:15:34 MSK
 Socket server started
-[INFO] 2014:03:05 07:15:07 MSK
+[INFO] 2014:03:07 02:15:34 MSK
 Port: 81
-[INFO] 2014:03:05 07:15:33 MSK
+[INFO] 2014:03:07 02:16:02 MSK
 Client /127.0.0.1 connected
+[ERROR] 2014:03:07 02:16:13 MSK
+Client /127.0.0.1 has a problem: users.User; local class incompatible: stream classdesc serialVersionUID = -7501038353222306092, local class serialVersionUID = -7842053450337947301

@@ -8,6 +8,10 @@ import java.net.Socket;
 import message.AuthorizationMessage;
 import message.ErrorMessage;
 import message.Message;
+import message.PingMessage;
+import message.UserAuthorize;
+import users.User;
+import client.view.ChatView;
 
 /**
  * Класс, реализующий логику клиента.
@@ -19,20 +23,30 @@ import message.Message;
  */
 public class ChatModel {
 	private Socket socket;
-	private volatile ObjectInputStream inputStream;
+	private ChatView view;
+	private boolean isConnected;
+	private boolean isAuthorized;
+	private User user;
+
+    private volatile ObjectInputStream inputStream;
 	private volatile ObjectOutputStream outputStream;
 
-	private ChatModel(Socket ss) throws IOException{
+	private ChatModel(ChatView view, Socket ss) throws IOException{
+	    this.view = view;
 		this.socket = ss;
 		this.inputStream = new ObjectInputStream(ss.getInputStream());
 		this.outputStream = new ObjectOutputStream(ss.getOutputStream());
 	}
-   
 
-	public void sendMessage(Message message) throws IOException {
-		synchronized (this.outputStream) {
-			this.outputStream.writeObject(message);
-		}
+	public void sendMessage(Message message) throws IOException{
+        synchronized (this.outputStream) {
+            try {
+                this.outputStream.writeObject(message);
+                this.outputStream.flush();
+            } catch (IOException e) {
+                this.close();
+            }
+        }
 	}
 	public boolean authorize(AuthorizationMessage message) throws IOException {
 		try {
@@ -52,21 +66,95 @@ public class ChatModel {
 		
 		return false;
 	}
-	private Message getResponce() throws ClassNotFoundException, IOException {
+	public Message getResponce() throws ClassNotFoundException, IOException {
 		synchronized (this.inputStream) {
 			return (Message)inputStream.readObject();
 		}
 	}
 
-
-
-	public static ChatModel connect(String host, int port) throws IOException {
+	public static ChatModel connect(String host, int port, ChatView view) throws IOException {
 		Socket ss = new Socket(host, port);
-		return new ChatModel(ss);
+		return new ChatModel(view, ss);
 	}
 
 	public Socket getSocket() {
 		return socket;
 	}
+	public void close() throws IOException {
+		if(this.socket != null && this.socket.isConnected()){
+			this.inputStream.close();
+			this.outputStream.close();
+			this.socket.close();
+			
+			this.setConnected(false);
+			this.setAuthorized(false);
+		}
+	}
+
+	/**
+     * Данный метод пингует сервер на наличие изменений в сервере
+     * с интервалом в полсекунды.
+     * 
+     * секунда - для отладочных целей
+     * 
+     * В будуших версиях интервал пингования можно считывать из
+     * конфиг файла
+     */    
+	public void startServerListening() {
+		Thread th = new Thread(new Runnable() {
+			int count = 0;
+			@Override
+			public void run() {
+				while (isConnected && isAuthorized) {
+					try {
+						sendMessage(new PingMessage(user));
+						Message msg = getResponce();
+						System.out.println("Iteration " + count++);
+						executeMessage(msg);
+
+						Thread.sleep(1000);
+
+					} catch (IOException | InterruptedException
+							| ClassNotFoundException e) {
+						view.showErrorMessage(e.getMessage());
+					}
+				}
+			}
+		});
+		th.start();
+	}
+    @Deprecated
+    /**
+     * Не дописана основная логика
+     * @param msg
+     */
+    protected void executeMessage(Message msg) {
+        if(msg instanceof PingMessage)
+            return;
+        if(msg instanceof UserAuthorize)
+            this.view.publishMessage("[" + msg.getUser().getLogin() + "] joined!");
+        else
+            this.view.publishMessage("[" + msg.getUser().getLogin() + "] say: " + msg.getMessage());
+    }  
+
+    public boolean isConnected() {
+        return isConnected;
+    }
+    public void setConnected(boolean isConnected) {
+        this.isConnected = isConnected;
+    }
+    public boolean isAuthorized() {
+        return isAuthorized;
+    }
+    public void setAuthorized(boolean isAuthorized) {
+        this.isAuthorized = isAuthorized;
+    }
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 
 }

@@ -30,6 +30,7 @@ public class SocketServer {
 	private volatile List<Message> chatHistory;
 	private volatile List<ClientThread> activeUsers;
 	private volatile List<ClientThread> authorizedUsers;
+	// Похорошему - надо бы здесь использовать что-то типо мапы!
 	private volatile List<User> allUsers;
 	private XmlWorker worker = new XmlWorker();
 
@@ -52,6 +53,7 @@ public class SocketServer {
 	public void start() {
 		this.logger.logInformationMessage("Socket server started");
 		this.logger.logInformationMessage("Port: " + this.port);
+		System.out.println("Socket server started");
 		System.out.println("Port: " + this.port);
 		this.isActive = true;
 
@@ -144,7 +146,6 @@ public class SocketServer {
 	}
 
 	public User autorizeUser(String login, String pass) {
-		System.out.println(allUsers.size());
 		synchronized (this.allUsers) {
 			for (User user : this.allUsers) {
 				if (user.authorize(login, pass))
@@ -154,9 +155,7 @@ public class SocketServer {
 		return null;
 	}
 
-	public boolean registerNewUser(RegistrationMessage message) {
-		User user = new User(message.getLogin(), message.getPass());
-
+	public boolean registerNewUser(User user) {
 		/**
 		 * Простая валидация. Проверка на существование другого пользователя с
 		 * таким же логином
