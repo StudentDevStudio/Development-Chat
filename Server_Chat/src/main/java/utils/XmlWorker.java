@@ -30,7 +30,8 @@ public class XmlWorker {
 		File loadFile = new File(Configurator.getInstance().getUserFilePath());
 		JAXBContext context = JAXBContext.newInstance(UsersData.class);
 		Unmarshaller unmarshaller = context.createUnmarshaller();
-		return (UsersData) unmarshaller.unmarshal(loadFile);
+		data = (UsersData) unmarshaller.unmarshal(loadFile);
+		return data == null ? new UsersData() : data;
 	}
 
 	public void setUsersData(UsersData data) {

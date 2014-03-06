@@ -98,6 +98,7 @@ public class SocketServer {
 			this.allUsers = worker.load().getUsers();
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
+			allUsers = new ArrayList<>();
 			logger.logErrorMessage(e.toString());
 		}
 		this.chatHistory = Util.getChatHistory(new File("system_files/history.obj"));
@@ -143,6 +144,7 @@ public class SocketServer {
 	}
 
 	public User autorizeUser(String login, String pass) {
+		System.out.println(allUsers.size());
 		synchronized (this.allUsers) {
 			for (User user : this.allUsers) {
 				if (user.authorize(login, pass))
