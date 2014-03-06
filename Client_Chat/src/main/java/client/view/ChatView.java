@@ -7,6 +7,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 
+import javax.swing.AbstractAction;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,6 +25,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.JTree;
+import javax.swing.KeyStroke;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -91,6 +93,13 @@ public class ChatView extends JFrame {
         this.setResizable(false);
         this.setLocation(250,150);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        
+        mainTextPane.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,2), "enter");
+        mainTextPane.getActionMap().put("enter", new AbstractAction() {
+        	public void actionPerformed(ActionEvent arg0) {
+              sendMessageToServer();
+           	}
+        });
 
         connectionStatus.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
