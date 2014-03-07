@@ -1,6 +1,6 @@
 package server.socketServer;
 
-import java.io.File;
+
 import java.io.IOException;
 
 import logging.Logger;
@@ -25,17 +25,17 @@ public class ServerStarter{
     }
     
     public void start(){
-    	Logger log = null;
+    	Logger logger = Logger.getLogger() ;
 		try {
-			File logfile = new File("SocketServer.log");
-			log = new Logger(logfile);
-			this.ssServer = new SocketServer(log);
+			
+		
+			this.ssServer = new SocketServer(logger);
 			ssServer.start();
-			System.out.println("Socket server startded");
+			System.out.println("Socket server started");
 		} catch(IOException e){
 			System.out.println(e.getMessage());
 		}finally {
-			log.close();
+			logger.close();;
 			System.out.println("Log file closed");
 		}
 	}
