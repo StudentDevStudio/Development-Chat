@@ -1,11 +1,13 @@
 package logging;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+
+import org.apache.logging.log4j.Level;
 
 /**
  * Данный класс реализует функционал но логированию 
@@ -15,51 +17,46 @@ import java.util.Locale;
  * https://vk.com/almaz_kg
  */
 public class Logger {
-	private StringBuffer sb;
-	private File logFile;
-	private PrintWriter writer; 
+	 
 	private SimpleDateFormat formatter;
-
-	public Logger(File logFile) throws IOException{
-		this.logFile = logFile;
-		if(!logFile.exists())
-			logFile.createNewFile();
-		this.writer = new PrintWriter(logFile);
+	private static Logger instance;
+	private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getRootLogger();
+	private Logger() {
+	
+		
 		this.formatter = new SimpleDateFormat("YYYY:MM:dd hh:mm:ss z", Locale.ENGLISH);
 		
-		this.sb = new StringBuffer();
+		
 	}
 
 	public void logErrorMessage(String message){
-		this.sb.setLength(0);
-		sb.append("[ERROR] ");
-		sb.append(this.formatter.format(new Date()) + "\n");
-		sb.append(message);
+		logger.log(Level.ERROR, "[ERROR] ");
+		logger.log(Level.ERROR, this.formatter.format(new Date()));
+		logger.log(Level.ERROR,message);
+
 		
-		printMessage(sb.toString());
+		
 	}
 	public void logInformationMessage(String message){
-		this.sb.setLength(0);
-		sb.append("[INFO] ");
-		sb.append(this.formatter.format(new Date()));
-		sb.append("\n");
-		sb.append(message);
+		logger.log(Level.INFO, "[INFO] ");
+		logger.log(Level.INFO, this.formatter.format(new Date()));
+		logger.log(Level.INFO, message);
 		
-		printMessage(sb.toString());
 	}
 	
 	private void printMessage(String message){
-		this.writer.write(message + "\n");
-		this.writer.flush();
+		logger.log(Level.TRACE, message);
 	}
 	
-	public File getLogFile() {
-		return logFile;
-	}
-	public void setLogFile(File logFile) {
-		this.logFile = logFile;
-	}
+
 	public void close(){
-		this.writer.close();
+		logger.exit();
+	}
+
+	public static Logger getLogger() {
+		 if (instance == null) {
+	            instance = new Logger();
+	        }
+	        return instance;
 	}
 }
