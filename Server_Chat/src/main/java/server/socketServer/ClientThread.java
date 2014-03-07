@@ -7,9 +7,13 @@ import java.net.Socket;
 import java.util.List;
 
 import message.AuthorizationMessage;
+import message.CloseConnectionMessage;
 import message.ErrorMessage;
 import message.Message;
+import message.PingMessage;
 import message.RegistrationMessage;
+import message.UserAuthorize;
+import message.UserDisconnected;
 import users.User;
 
 /**
@@ -51,19 +55,31 @@ public class ClientThread implements Runnable {
     	while(this.isAlive){
 			try {
 				// Читаем Message из потока
+				Message message = (Message) inputStream.readObject(); 
 				
-				// - Ошибка - че за нах! Откуда здесь берется String?
-				Object o = inputStream.readObject();
-				if(o instanceof String){
-					System.out.println((String)o);
+				/**
+				 * TODO: По замыслу: при получении от клиента пинг-месседжа -
+				 * 	сервер должен проверить на наличие новых сообщений, если есть
+				 *  новые сообщения передать его клиенту! Если новых сообщений нет
+				 *  пинг месседж просто игнорируется - в ответ клиенту отправляется
+				 *  пустой пинг-месседж  
+				 */
+				if((message instanceof PingMessage)){
+					this.send(new PingMessage(getUser()));
+					
+					continue;
 				}
-				Message message = (Message) o; 
+					
+					
 				System.out.println("Get a message: " + message.getMessage());
+				
 				// Что за сообщение пришло?!
 				if (message instanceof AuthorizationMessage) {
 					authorizeUser((AuthorizationMessage)message);
 				} else if (message instanceof RegistrationMessage) {
 					registerNewUser((RegistrationMessage)message);
+				} else if (message instanceof CloseConnectionMessage){
+					closeConnection();
 				} else {
 					if (this.isAuthorized) {
 						this.server.sendToActiveUsers(message);
@@ -77,14 +93,23 @@ public class ClientThread implements Runnable {
     	}
 	}
 
-    private void authorizeUser(AuthorizationMessage message) throws IOException {
+    private void closeConnection() throws IOException {
+    	if(this.isAuthorized){
+    		this.server.sendToActiveUsers(new UserDisconnected(this.user));
+    		this.server.removeAuthorizedUser(this);
+    		System.out.println(this.user.getLogin() + " disconnected");
+    	}
+		this.isAlive = false;
+		this.clientSocket.close();
+	}
+
+	private void authorizeUser(AuthorizationMessage message) throws IOException {
 		User res = this.server.autorizeUser(message.getLogin(), message.getPass());
     	if(res != null){
     		this.user = res;
     		
     		// Передаем клиенту - авторизационное сообщение 
-			Message msg = new Message("OK");
-			this.send(msg);
+			this.send(new UserAuthorize(getUser()));
 			
 			// Инициализируемся
 			initialize();
@@ -99,7 +124,7 @@ public class ClientThread implements Runnable {
 		if(this.server.registerNewUser(user)){
 			this.user = user;
 			// Передаем юзеру что регистрация успешно прошла
-			this.send(new Message("Registration successfull"));
+			this.send(new UserAuthorize(getUser()));
 			
 			initialize();
 		} else{
@@ -108,12 +133,14 @@ public class ClientThread implements Runnable {
 	}
 	private void initialize() throws IOException {
 		this.isAuthorized = true;
-		// Отправляем новичку историю чата
+		
+		
+		// TODO: - разработать эффективный алгоритм передачи истории чата клиенту
+		// Отправляем новичку историю чата - 
 		//this.send(server.getChatHistory());
 		
 		// И сообщаем всем клиентам, что подключился новый пользователь
-		server.sendToActiveUsers(new Message("The user "
-				+ this.user.getLogin() + " has been connect"));
+		server.sendToActiveUsers(new UserAuthorize(this.user));
 		
 		// Добавляем к списку пользователей - нового пользователя
 		this.server.addAuthorizedUser(this);

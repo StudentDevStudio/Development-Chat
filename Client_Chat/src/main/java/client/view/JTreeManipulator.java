@@ -22,6 +22,9 @@ public class JTreeManipulator {
     public void addActiveUser(JTree tree, String userName) {   
 
         Object src = tree.getLastSelectedPathComponent(); //Найти выделенный элемент в JTree
+        
+        
+        
         DefaultTreeModel model = (DefaultTreeModel)tree.getModel(); //Получение модели JTree
         
         if (src != null) {
@@ -32,7 +35,6 @@ public class JTreeManipulator {
             }
         }
     }
-    
     
     public void deleteUser(JTree tree) {
         DefaultTreeModel model = (DefaultTreeModel)tree.getModel();

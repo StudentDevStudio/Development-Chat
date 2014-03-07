@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import message.Message;
@@ -48,6 +49,9 @@ public class Util {
      * @throws IOException
      */
 	public static List<Message> getChatHistory(File file) throws IOException {
+		if(!file.exists())
+			return new ArrayList<>();
+		
 		FileInputStream in = new FileInputStream(file);
 		try (ObjectInputStream inputStream = new ObjectInputStream(in)){
 			return (List<Message>) inputStream.readObject();

@@ -20,14 +20,10 @@ public class ServerStarter{
      * Пока выпилена WebSocketServer-ная часть, поскольку его продвижение 
      * остановилось
      */
-    public ServerStarter(){
-		
-    }
-    
     public void start(){
     	Logger log = null;
 		try {
-			File logfile = new File("SocketServer.log");
+			File logfile = new File("system_files/SocketServer.log");
 			log = new Logger(logfile);
 			this.ssServer = new SocketServer(log);
 			ssServer.start();

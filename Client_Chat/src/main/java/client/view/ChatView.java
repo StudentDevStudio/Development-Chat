@@ -3,7 +3,6 @@ package client.view;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 
@@ -29,11 +28,8 @@ import javax.swing.JTree;
 import javax.swing.KeyStroke;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 import message.Message;
-import message.PingMessage;
-import users.User;
 import client.model.ChatModel;
 
 /**
@@ -43,6 +39,7 @@ import client.model.ChatModel;
  */
 public class ChatView extends JFrame {
     private static final long serialVersionUID = -7279794261227376309L;
+    private static final String TITLE = "Life chat";
     private JRadioButton connectionStatus;
     private JLabel constConnectionStatusLabel;
     private JButton sendButton;
@@ -75,8 +72,6 @@ public class ChatView extends JFrame {
     private SmileChooser smileChooser;
 	private ChatModel chatModel;
     
-    
- 
 	public ChatView() {
         initComponents();
     
@@ -89,7 +84,7 @@ public class ChatView extends JFrame {
 	}
 	private void initComponents() {
         createElements();
-        this.setTitle("Life chat");
+        this.setTitle(TITLE);
         this.setIconImage(new ImageIcon(getClass().getResource("/images/icons/comments.png")).getImage());
         this.setResizable(false);
         this.setLocation(250,150);
@@ -140,6 +135,7 @@ public class ChatView extends JFrame {
         jScrollPane4.setViewportView(infoTextArea);
         jScrollPane1.setViewportView(publishTextPane);
         
+        initUserTree();
         initMenuFile();
         initMenuParams();
         initAboutMenu();
@@ -159,7 +155,18 @@ public class ChatView extends JFrame {
      */
     protected void connectionStatusChanged(ActionEvent e) {
         if(!this.connectionStatus.isSelected()){
-        	this.disconnectMenuItemClicked(e);
+            if(this.chatModel == null)
+                return;
+             try {
+                if(this.chatModel.isConnected()){
+                    this.chatModel.close();
+                    this.chatModel.setConnected(false);
+                    this.showInformationMessage("Connection closed");
+                    this.setTitle(TITLE);
+                }
+            } catch (IOException ex) {
+                this.showErrorMessage(ex.getMessage());
+            }
             this.connectionStatus.setSelected(false);
         } else{
         	this.connectionStatus.setSelected(false); // Если это убрать - получится так, что даже если еще не подключились, радиобаттон будет отображать статус: Подключено
@@ -169,7 +176,7 @@ public class ChatView extends JFrame {
         	 * TODO: Здесь необходимо реализовать проверку на успешность подключения, пока реализован костыль
         	 * 
         	 */
-        	if(this.chatModel.isAuthorized()){
+        	if(this.chatModel != null && this.chatModel.isAuthorized()){
         		this.connectionStatus.setSelected(true);
         		this.chatModel.setConnected(true);
         	}
@@ -178,7 +185,7 @@ public class ChatView extends JFrame {
     
     protected void sendButtonClicked(ActionEvent e) {
     	try {
-			if(this.chatModel.isConnected()){
+			if(this.chatModel != null && this.chatModel.isConnected()){
 				if (this.chatModel.isAuthorized()) {
 					String message = this.mainTextPane.getText();
 					this.chatModel.sendMessage(new Message(chatModel.getUser(), message));
@@ -225,15 +232,18 @@ public class ChatView extends JFrame {
     	}
 	}
     protected void disconnectMenuItemClicked(ActionEvent e) {
-    	 try {
-         	if(this.chatModel.isConnected()){
- 				this.chatModel.close();
- 				this.chatModel.setConnected(false);
- 				this.showInformationMessage("Connection closed");
-         	}
- 		} catch (IOException ex) {
- 			this.showErrorMessage(ex.getMessage());
- 		}
+        if(this.chatModel != null && this.chatModel.isConnected()){
+            try {
+                this.chatModel.close();
+                this.connectionStatus.setSelected(false);
+                
+                this.showInformationMessage("Connection closed");
+            } catch (IOException ex) {
+                this.showErrorMessage(ex.getMessage());
+            }
+        }else{
+            this.showInformationMessage("You have not active connection");
+        }
     }
    
 
@@ -322,12 +332,20 @@ public class ChatView extends JFrame {
         mainMenuBar.add(menuFile);
     }
   
+    
+    private void initUserTree(){
+    	/**
+    	 * TODO: Здесь будет инициализация дерева пользователей
+    	 * Этим щас занимается Илья Котов
+    	 */
+    }
     private void createElements(){
         smileButton = new JButton();
         attachButton = new JButton();
         sendButton = new JButton();
         publishTextPane = new JTextPane();
-        this.publishTextPane.setText("Life chat");
+        publishTextPane.setText("Life chat");
+        
         mainTextPane = new JTextPane();
         infoTextArea = new JTextArea();
         connectionStatus = new JRadioButton();
@@ -343,7 +361,6 @@ public class ChatView extends JFrame {
         jScrollPane3 = new JScrollPane();
         jScrollPane4 = new JScrollPane();
         
-        mainTree = new JTree(new DefaultMutableTreeNode("Users"));
         smileChooser = new SmileChooser(this, false);
         
         mainMenuBar = new JMenuBar();

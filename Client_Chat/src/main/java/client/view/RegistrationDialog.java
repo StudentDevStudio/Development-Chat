@@ -22,6 +22,7 @@ import javax.swing.WindowConstants;
 
 import message.Message;
 import message.RegistrationMessage;
+import message.UserAuthorize;
 import users.User;
 import client.model.ChatModel;
 
@@ -84,9 +85,7 @@ public class RegistrationDialog extends JDialog {
 		} else {
 			this.showErrorMessage("Please, enter login");
 		}
-	}
-
-    
+	}    
 		
 	private void register() {
 		try {
@@ -105,12 +104,18 @@ public class RegistrationDialog extends JDialog {
 				Message answ = model.getResponce();
 				
 				// Если сервер ответил так - то регистрация успешна
-				if("Registration successfull".equals(answ.getMessage())){
-				    model.setAuthorized(true);
-				    model.setUser(new User(login, pass));
-				    this.parent.setChatModel(model);
-					
-					this.showInformationMessage("Registration succesful");
+				if(answ instanceof UserAuthorize){
+				    // Авторизация успешна
+                    // Далее устанавливаем ChatModel - для ChatView'a
+                    model.setAuthorized(true);
+                    model.setConnected(true);
+                    model.setUser(new User(login, pass));
+                    this.parent.setChatModel(model);
+                    this.showInformationMessage("Registration succesful");
+                    model.startServerListening();
+				    
+					String title = this.parent.getTitle();
+					this.parent.setTitle(title + ": " + model.getUser().getLogin());
 					
 					// Закрываем данное диалогое окно
 					this.dispose();

@@ -8,4 +8,5 @@ public class PingMessage extends Message {
     public PingMessage(User user) {
         super(user,"Ping message");
     }
+
 }

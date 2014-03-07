@@ -50,6 +50,7 @@ public class ConnectionDialog extends JDialog {
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         
         this.parent = (ChatView) parent;
+        this.setResizable(false);
         this.setTitle("Connection");
         
         
@@ -130,6 +131,11 @@ public class ConnectionDialog extends JDialog {
 				    model.setUser(new User(login, pass));
 					this.parent.setChatModel(model);
 					this.showInformationMessage("Connected");
+					
+
+					String title = this.parent.getTitle();
+					this.parent.setTitle(title + ": " + model.getUser().getLogin());
+					
 					model.startServerListening();
 					// Закрываем данный фрейм
 					this.dispose();

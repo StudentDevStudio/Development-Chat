@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import message.AuthorizationMessage;
+import message.CloseConnectionMessage;
 import message.ErrorMessage;
 import message.Message;
 import message.PingMessage;
@@ -39,6 +40,8 @@ public class ChatModel {
 	}
 
 	public void sendMessage(Message message) throws IOException{
+		System.out.println("Trying to send message: " + message.getMessage());
+		
         synchronized (this.outputStream) {
             try {
                 this.outputStream.writeObject(message);
@@ -54,10 +57,8 @@ public class ChatModel {
 			Message msg = getResponce();
 			if(msg instanceof ErrorMessage){
 				return false;
-			} else{
-				if(msg.getMessage().equals("OK")){
-					return true;
-				}
+			} else if(msg instanceof UserAuthorize){
+				return true;
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -82,6 +83,8 @@ public class ChatModel {
 	}
 	public void close() throws IOException {
 		if(this.socket != null && this.socket.isConnected()){
+			sendMessage(new CloseConnectionMessage(this.user));
+			
 			this.inputStream.close();
 			this.outputStream.close();
 			this.socket.close();
@@ -107,7 +110,8 @@ public class ChatModel {
 			public void run() {
 				while (isConnected && isAuthorized) {
 					try {
-						sendMessage(new PingMessage(user));
+						PingMessage ping = new PingMessage(user);
+						sendMessage(ping);
 						Message msg = getResponce();
 						System.out.println("Iteration " + count++);
 						executeMessage(msg);

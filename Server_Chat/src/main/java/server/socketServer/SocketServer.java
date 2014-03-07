@@ -38,10 +38,6 @@ public class SocketServer {
 		this.logger = log;
 
 		init();
-
-		this.chatHistory.add(new Message("Hello world"));
-		Util.saveChatHistory(new File("system_files/history.obj"),
-				this.chatHistory);
 	}
 
 	public SocketServer(int port, Logger log) throws IOException {
@@ -103,7 +99,8 @@ public class SocketServer {
 			allUsers = new ArrayList<>();
 			logger.logErrorMessage(e.toString());
 		}
-		this.chatHistory = Util.getChatHistory(new File("system_files/history.obj"));
+		
+	 	this.chatHistory = Util.getChatHistory(new File("system_files/history.obj"));
 	}
 
 	public List<Message> getChatHistory() {
@@ -144,7 +141,11 @@ public class SocketServer {
 			this.authorizedUsers.add(client);
 		}
 	}
-
+	public void removeAuthorizedUser(ClientThread client){
+		synchronized (this.authorizedUsers) {
+			this.authorizedUsers.remove(client);
+		}
+	}
 	public User autorizeUser(String login, String pass) {
 		synchronized (this.allUsers) {
 			for (User user : this.allUsers) {

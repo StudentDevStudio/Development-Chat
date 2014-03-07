@@ -16,11 +16,14 @@ import users.User;
  * https://vk.com/almaz_kg
  */
 public class Message implements Serializable{
-	private static final long serialVersionUID = -5853517790837772843L;
+	private static final long serialVersionUID = 1L;
 	private Date date;
 	private User user;
 	private String message;
 	
+	public Message(){
+		this.date = new Date();
+	}
 	/**
 	 * Мессадж для клиентов от самого сервера
 	 * @param message
