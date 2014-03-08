@@ -88,13 +88,13 @@ public class SocketServer {
 	}
 
 	private void init() throws IOException {
-		this.activeUsers = new ArrayList<>();
-		this.authorizedUsers = new ArrayList<>();
+		this.activeUsers = new ArrayList<ClientThread>();
+		this.authorizedUsers = new ArrayList<ClientThread>();
 		try {
 			this.allUsers = worker.load().getUsers();
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
-			allUsers = new ArrayList<>();
+			allUsers = new ArrayList<User>();
 			logger.logErrorMessage(e.toString());
 		}
 		
