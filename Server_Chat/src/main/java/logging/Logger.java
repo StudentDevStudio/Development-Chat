@@ -1,8 +1,5 @@
 package logging;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -43,10 +40,6 @@ public class Logger {
 		logger.log(Level.INFO, message);
 		
 		
-	}
-	
-	private void printMessage(String message){
-		logger.log(Level.TRACE,message);
 	}
 	
 	public static Logger getLogger() {

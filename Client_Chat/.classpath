@@ -22,5 +22,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="E:/DevelopmentTools/LookAndFeel/Jars/synthetica.jar"/>
+	<classpathentry kind="lib" path="E:/DevelopmentTools/LookAndFeel/Jars/syntheticaAluOxide.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
