@@ -1,2 +1,7 @@
 /target
 /system_files
+/.idea
+*.iml
+.classpath
+.project
+/.settings
