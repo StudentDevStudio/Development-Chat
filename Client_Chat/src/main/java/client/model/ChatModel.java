@@ -1,18 +1,13 @@
 package client.model;
 
+import client.view.ChatView;
+import message.*;
+import users.User;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-
-import message.AuthorizationMessage;
-import message.CloseConnectionMessage;
-import message.ErrorMessage;
-import message.Message;
-import message.PingMessage;
-import message.UserAuthorize;
-import users.User;
-import client.view.ChatView;
 
 /**
  * Класс, реализующий логику клиента.
@@ -110,15 +105,10 @@ public class ChatModel {
 			public void run() {
 				while (isConnected && isAuthorized) {
 					try {
-						PingMessage ping = new PingMessage(user);
-						sendMessage(ping);
 						Message msg = getResponce();
 						System.out.println("Iteration " + count++);
 						executeMessage(msg);
-
-						Thread.sleep(1000);
-
-					} catch (IOException | InterruptedException
+					} catch (IOException
 							| ClassNotFoundException e) {
 						view.showErrorMessage(e.getMessage());
 					}
