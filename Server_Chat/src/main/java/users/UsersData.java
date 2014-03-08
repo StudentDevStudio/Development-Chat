@@ -9,7 +9,7 @@ import java.util.List;
  * Created by IAUglov on 05.03.14.
  */
 public class UsersData {
-    private List<User> users = new ArrayList<>();
+    private List<User> users = new ArrayList<User>();
 
     @XmlElement(name="user")
     @XmlElementWrapper(name="users")
