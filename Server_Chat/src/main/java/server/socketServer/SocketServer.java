@@ -1,21 +1,19 @@
 package server.socketServer;
 
+import logging.Logger;
+import message.Message;
+import message.PingMessage;
+import users.User;
+import utils.Util;
+import utils.XmlWorker;
+
+import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.bind.JAXBException;
-
-import logging.Logger;
-import message.Message;
-import message.RegistrationMessage;
-import users.User;
-import utils.Configurator;
-import utils.Util;
-import utils.XmlWorker;
 
 /**
  * Класс реализующий логику ServerSocket'a сервера.
@@ -24,7 +22,7 @@ import utils.XmlWorker;
  * 
  */
 public class SocketServer {
-	private int port = 81;
+	private int port = 8083;
 	private boolean isActive = false;
 	private Logger logger;
 	private volatile List<Message> chatHistory;
@@ -101,7 +99,22 @@ public class SocketServer {
 		}
 		
 	 	this.chatHistory = Util.getChatHistory(new File("system_files/history.obj"));
-	}
+
+        Thread pinger = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (isActive) {
+                    try {
+                        Thread.sleep(15000);
+                        sendToActiveUsers(new PingMessage(null));
+                    } catch (InterruptedException ignored) {
+                    }
+                }
+            }
+        });
+        pinger.setDaemon(true);
+        pinger.start();
+    }
 
 	public List<Message> getChatHistory() {
 		return this.chatHistory;
