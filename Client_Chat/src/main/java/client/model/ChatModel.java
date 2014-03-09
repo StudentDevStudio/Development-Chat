@@ -4,6 +4,7 @@ import client.view.ChatView;
 import message.*;
 import users.User;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -18,6 +19,7 @@ import java.net.Socket;
  *
  */
 public class ChatModel {
+	javax.sound.sampled.AudioInputStream audioIn;
 	private Socket socket;
 	private ChatView view;
 	private boolean isConnected;
@@ -125,11 +127,23 @@ public class ChatModel {
     protected void executeMessage(Message msg) {
         if(msg instanceof PingMessage)
             return;
-        if(msg instanceof UserAuthorize)
+        if(msg instanceof UserAuthorize){
             this.view.publishMessage("[" + msg.getUser().getLogin() + "] joined!");
+        	try {
+				playSound("src/main/sounds/loginMessage.wav");
+			} catch (javax.sound.sampled.UnsupportedAudioFileException | IOException | javax.sound.sampled.LineUnavailableException e) {
+				e.printStackTrace();
+			}
+        		}
         else
             this.view.publishMessage("[" + msg.getUser().getLogin() + "] say: " + msg.getMessage());
-    }  
+        try {
+			playSound("src/main/sounds/newMessage.wav");
+		} catch (javax.sound.sampled.UnsupportedAudioFileException | IOException | javax.sound.sampled.LineUnavailableException e) {
+			e.printStackTrace();
+		}
+    		}
+      
 
     public boolean isConnected() {
         return isConnected;
@@ -149,6 +163,12 @@ public class ChatModel {
     public void setUser(User user) {
         this.user = user;
     }
-
+    
+    public void playSound(String path) throws javax.sound.sampled.UnsupportedAudioFileException, IOException, javax.sound.sampled.LineUnavailableException{
+    	audioIn = javax.sound.sampled.AudioSystem.getAudioInputStream(new File(path));
+    	javax.sound.sampled.Clip clip = javax.sound.sampled.AudioSystem.getClip();
+    	clip.open(audioIn);
+    	clip.start();
+    }
 
 }
