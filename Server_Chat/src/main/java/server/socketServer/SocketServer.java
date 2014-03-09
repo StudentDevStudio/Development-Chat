@@ -4,6 +4,7 @@ import logging.Logger;
 import message.Message;
 import message.PingMessage;
 import users.User;
+import utils.Configurator;
 import utils.Util;
 import utils.XmlWorker;
 
@@ -23,15 +24,16 @@ import java.util.List;
 public class SocketServer {
     public static final int DEFAULT_PORT = 8083;
 
-    private int port;
-    private boolean isActive = false;
+    private          int                port;
+    private          boolean            isActive;
     private          Logger             logger;
     private volatile List<Message>      chatHistory;
     private volatile List<ClientThread> activeUsers;
     private volatile List<ClientThread> authorizedUsers;
+
     // Похорошему - надо бы здесь использовать что-то типо мапы!
-    private volatile List<User>         allUsers;
-    private XmlWorker worker = new XmlWorker();
+    private volatile List<User> allUsers;
+    private          XmlWorker  worker;
 
     public SocketServer(Logger logger) throws IOException {
         this(DEFAULT_PORT, logger);
@@ -40,6 +42,11 @@ public class SocketServer {
     public SocketServer(int port, Logger logger) throws IOException {
         this.port = port;
         this.logger = logger;
+
+        isActive = false;
+        final Configurator config = new Configurator();
+        worker = new XmlWorker(config);
+
         activeUsers = new ArrayList<ClientThread>();
         authorizedUsers = new ArrayList<ClientThread>();
         try {
@@ -201,5 +208,4 @@ public class SocketServer {
     public Logger getLogger() {
         return logger;
     }
-
 }
