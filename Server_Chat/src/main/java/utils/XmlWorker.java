@@ -1,44 +1,49 @@
 package utils;
 
-import java.io.File;
-import java.util.List;
+import users.User;
+import users.UsersData;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-
-import users.User;
-import users.UsersData;
+import java.io.File;
+import java.util.List;
 
 public class XmlWorker {
-	private UsersData data = new UsersData();
+    private final Configurator config;
+    private       UsersData    data;
 
-	public void save() throws JAXBException {
-		if (data == null) {
-			// Logging
-			return;
-		}
-		File saveFile = new File(Configurator.getInstance().getUserFilePath());
-		JAXBContext context = JAXBContext.newInstance(UsersData.class);
-		Marshaller marshall = context.createMarshaller();
-		marshall.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		marshall.marshal(data, saveFile);
-	}
+    public XmlWorker(Configurator config) {
+        this.config = config;
+        data = new UsersData();
+    }
 
-	public UsersData load() throws JAXBException {
-		File loadFile = new File(Configurator.getInstance().getUserFilePath());
-		JAXBContext context = JAXBContext.newInstance(UsersData.class);
-		Unmarshaller unmarshaller = context.createUnmarshaller();
-		data = (UsersData) unmarshaller.unmarshal(loadFile);
-		return data == null ? new UsersData() : data;
-	}
+    public void save() throws JAXBException {
+        if (data == null) {
+            // Logging
+            return;
+        }
+        File saveFile = new File(config.getUserFilePath());
+        JAXBContext context = JAXBContext.newInstance(UsersData.class);
+        Marshaller marshall = context.createMarshaller();
+        marshall.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        marshall.marshal(data, saveFile);
+    }
 
-	public void setUsersData(UsersData data) {
-		this.data = data;
-	}
+    public UsersData load() throws JAXBException {
+        File loadFile = new File(config.getUserFilePath());
+        JAXBContext context = JAXBContext.newInstance(UsersData.class);
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+        data = (UsersData) unmarshaller.unmarshal(loadFile);
+        return data == null ? new UsersData() : data;
+    }
 
-	public void setUserData(List<User> data) {
-		this.data.setUsers(data);
-	}
+    public void setUsersData(UsersData data) {
+        this.data = data;
+    }
+
+    public void setUserData(List<User> data) {
+        this.data.setUsers(data);
+    }
 }
