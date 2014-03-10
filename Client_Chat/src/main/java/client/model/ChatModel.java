@@ -148,7 +148,6 @@ public class ChatModel {
             this.view.publishMessage("[" + formater.format(msg.getDate()) + " "
                     + msg.getUser().getLogin() + "] disconected!");
             this.view.getMainTree().deleteOnlineUser(msg.getUser().getLogin());
-            this.view.getMainTree().addOfflineUser(msg.getUser().getLogin());
         } else if (msg instanceof UserAuthorize) {
             this.view.publishMessage("[" + formater.format(msg.getDate()) + " "
                     + msg.getUser().getLogin() + "] joined!");
@@ -157,7 +156,6 @@ public class ChatModel {
             this.view.getMainTree().addOfflineUser(msg.getUser().getLogin());
             
             URL url = getClass().getResource("/sounds/loginMessage.wav");
-            System.out.println(url.toExternalForm());
             playSound(getAudioInputStream(url));
 
         } else {
