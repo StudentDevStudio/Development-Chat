@@ -14,7 +14,6 @@ import java.util.List;
  *
  * @author Almaz
  */
-@Deprecated
 public class Util {
     @SuppressWarnings("unchecked")
     /**
@@ -31,7 +30,10 @@ public class Util {
             return (List<User>) inputStream.readObject();
         } catch (ClassNotFoundException e) {
             throw new IOException(e.getMessage());
+        } finally{
+            inputStream.close();
         }
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -53,7 +55,10 @@ public class Util {
             return (List<Message>) inputStream.readObject();
         } catch (ClassNotFoundException e) {
             throw new IOException(e.getMessage());
+        } finally{
+            inputStream.close();
         }
+        
     }
 
     /**

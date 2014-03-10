@@ -11,7 +11,7 @@ import java.util.Locale;
 /**
  * Данный класс реализует функционал но логированию событий
  *
- * @author Almaz https://vk.com/almaz_kg
+ * @author Almaz
  */
 public class Logger {
 

@@ -7,9 +7,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+
 import java.io.File;
 import java.util.List;
 
+@SuppressWarnings("restriction")
 public class XmlWorker {
     private final Configurator config;
     private       UsersData    data;
@@ -18,7 +20,6 @@ public class XmlWorker {
         this.config = config;
         data = new UsersData();
     }
-
     public void save() throws JAXBException {
         if (data == null) {
             // Logging
@@ -30,7 +31,6 @@ public class XmlWorker {
         marshall.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshall.marshal(data, saveFile);
     }
-
     public UsersData load() throws JAXBException {
         File loadFile = new File(config.getUserFilePath());
         JAXBContext context = JAXBContext.newInstance(UsersData.class);

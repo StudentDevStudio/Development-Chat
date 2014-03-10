@@ -2,12 +2,14 @@ package users;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by IAUglov on 05.03.14.
  */
+@SuppressWarnings("restriction")
 public class UsersData {
     private List<User> users = new ArrayList<User>();
 

@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Данный класс инкапсулирует данные и метода для работы с конретным пользователем.
  *
- * @author Almaz https://vk.com/almaz_kg
+ * @author Almaz
  */
 public class ClientThread implements Runnable {
     private SocketServer       server;
@@ -35,10 +35,10 @@ public class ClientThread implements Runnable {
         outputStream.writeObject(message);
         outputStream.flush();
     }
-
     public void send(List<Message> messages) throws IOException {
-        outputStream.writeObject(messages);
-        outputStream.flush();
+        for (Message message : messages) {
+            send(message);
+        }
     }
 
     public void run() {
@@ -82,11 +82,28 @@ public class ClientThread implements Runnable {
                         "Client " + clientSocket.getInetAddress()
                         + " has a problem: " + e.getMessage()
                 );
+                try {
+                    closeConnection();
+                } catch (IOException e1) {
+                    server.getLogger().logErrorMessage(
+                            "Client " + clientSocket.getInetAddress()
+                            + " has a problem: " + e.getMessage()
+                    );
+                }
             } catch (IOException e) {
                 server.getLogger().logErrorMessage(
                         "Client " + clientSocket.getInetAddress()
                         + " has a problem: " + e.getMessage()
-                );
+                )
+                ;
+                try {
+                    closeConnection();
+                } catch (IOException e1) {
+                    server.getLogger().logErrorMessage(
+                            "Client " + clientSocket.getInetAddress()
+                            + " has a problem: " + e.getMessage()
+                    );
+                }
             }
         }
     }
@@ -121,7 +138,7 @@ public class ClientThread implements Runnable {
     private void registerNewUser(RegistrationMessage message) throws IOException {
         User user = new User(message.getLogin(), message.getPass());
         if (server.registerNewUser(user)) {
-            user = user;
+            this.user = user;
             // Передаем юзеру что регистрация успешно прошла
             send(new UserAuthorize(getUser()));
 

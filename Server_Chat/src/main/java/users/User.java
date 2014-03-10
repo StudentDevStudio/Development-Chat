@@ -1,6 +1,7 @@
 package users;
 
 import javax.xml.bind.annotation.XmlType;
+
 import java.io.Serializable;
 
 /**
@@ -10,9 +11,10 @@ import java.io.Serializable;
  * модификатор transient
  *
  * @author Almaz
- *         https://vk.com/almaz_kg
  */
 
+
+@SuppressWarnings("restriction")
 @XmlType(propOrder = {"login", "password"})
 public class User implements Serializable {
 	private static final long serialVersionUID = -7842053450337947301L;

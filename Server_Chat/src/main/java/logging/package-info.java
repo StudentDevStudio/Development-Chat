@@ -6,6 +6,5 @@
  * 
  * 
  * @author Almaz
- * https://vk.com/almaz_kg
  */
 package logging;

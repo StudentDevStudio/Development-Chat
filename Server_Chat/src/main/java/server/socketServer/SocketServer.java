@@ -22,19 +22,19 @@ import utils.XmlWorker;
  *
  * @author Almaz
  */
-public class SocketServer {
-    public static final int DEFAULT_PORT = 8083;
+@SuppressWarnings("restriction")
+public class SocketServer implements Runnable {
+    public static final int DEFAULT_PORT = 81;
 
-    private          int                port;
-    private          boolean            isActive;
+    private int port;
+    private boolean isActive = false;
     private          Logger             logger;
     private volatile List<Message>      chatHistory;
     private volatile List<ClientThread> activeUsers;
     private volatile List<ClientThread> authorizedUsers;
-
     // Похорошему - надо бы здесь использовать что-то типо мапы!
-    private volatile List<User> allUsers;
-    private          XmlWorker  worker;
+    private volatile List<User>         allUsers;
+    private XmlWorker worker;
 
     public SocketServer(Logger logger) throws IOException {
         this(DEFAULT_PORT, logger);
@@ -43,17 +43,16 @@ public class SocketServer {
     public SocketServer(int port, Logger logger) throws IOException {
         this.port = port;
         this.logger = logger;
-
+        
         isActive = false;
         final Configurator config = new Configurator();
         worker = new XmlWorker(config);
-
+        
         activeUsers = new ArrayList<ClientThread>();
         authorizedUsers = new ArrayList<ClientThread>();
         try {
             allUsers = worker.load().getUsers();
         } catch (JAXBException e) {
-            // TODO Auto-generated catch block
             allUsers = new ArrayList<User>();
             logger.logErrorMessage(e.toString());
         }
@@ -77,7 +76,7 @@ public class SocketServer {
         pinger.start();
     }
 
-    public void start() {
+    public void run() {
         logger.logInformationMessage("Socket server started");
         logger.logInformationMessage("Port: " + port);
         System.out.println("Socket server started");
@@ -109,7 +108,11 @@ public class SocketServer {
             logger.logErrorMessage(e.getMessage());
         }
     }
-
+    public void start(){
+        Thread th = new Thread(this);
+        th.setDaemon(true);
+        th.start();
+    }
     public void stop() {
         // Save all users
         worker.setUserData(allUsers);
@@ -126,19 +129,15 @@ public class SocketServer {
     public List<Message> getChatHistory() {
         return chatHistory;
     }
-
     public List<ClientThread> getActiveUsers() {
         return activeUsers;
     }
-
     public List<User> getAllUsers() {
         return allUsers;
     }
-
     public List<ClientThread> getAuthorizedUsers() {
         return authorizedUsers;
     }
-
     public void sendToActiveUsers(Message message) {
         synchronized (chatHistory) {
             chatHistory.add(message);
@@ -157,19 +156,16 @@ public class SocketServer {
             }
         }
     }
-
     public void addAuthorizedUser(ClientThread client) {
         synchronized (authorizedUsers) {
             authorizedUsers.add(client);
         }
     }
-
     public void removeAuthorizedUser(ClientThread client) {
         synchronized (authorizedUsers) {
             authorizedUsers.remove(client);
         }
     }
-
     public User autorizeUser(String login, String pass) {
         synchronized (allUsers) {
             for (User user : allUsers) {
@@ -179,7 +175,6 @@ public class SocketServer {
         }
         return null;
     }
-
     public boolean registerNewUser(User user) {
         /**
          * Простая валидация. Проверка на существование другого пользователя с
@@ -200,12 +195,11 @@ public class SocketServer {
     public int getPort() {
         return port;
     }
-
     public void setLogger(Logger log) {
         logger = log;
     }
-
     public Logger getLogger() {
         return logger;
     }
+
 }
