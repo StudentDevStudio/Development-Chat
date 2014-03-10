@@ -121,7 +121,7 @@ public class ClientThread implements Runnable {
     private void registerNewUser(RegistrationMessage message) throws IOException {
         User user = new User(message.getLogin(), message.getPass());
         if (server.registerNewUser(user)) {
-            user = user;
+            this.user = user;
             // Передаем юзеру что регистрация успешно прошла
             send(new UserAuthorize(getUser()));
 
