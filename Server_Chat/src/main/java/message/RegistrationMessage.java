@@ -8,7 +8,6 @@ package message;
  * Если знаете как решить эту проблему - дайте знать :)
  *
  * @author Almaz
- * https://vk.com/almaz_kg
  */
 public class RegistrationMessage extends Message {
 	private static final long serialVersionUID = -4046750420541211695L;
