@@ -30,7 +30,6 @@ import client.model.ChatModel;
  * Диалог отвечающий за регистрацию нового пользователя
  *
  * @author Almaz
- * https://vk.com/almaz_kg
  */
 public class RegistrationDialog extends JDialog {
 	private static final long serialVersionUID = -8366523917557569174L;
@@ -124,9 +123,13 @@ public class RegistrationDialog extends JDialog {
 			} else{
 				this.showErrorMessage("Connection failed!");
 			}
-		} catch (IOException | NumberFormatException | ClassNotFoundException e) {
-			this.showErrorMessage(e.getMessage());
-		}
+        } catch (IOException e) {
+            this.showErrorMessage(e.getMessage());
+        } catch (NumberFormatException e) {
+            this.showErrorMessage(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            this.showErrorMessage(e.getMessage());
+        }
 	}
 
 	// Простая валидация пароля - в дальнейщем этот метод может быть переписан

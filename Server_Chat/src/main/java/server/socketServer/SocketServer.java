@@ -1,5 +1,14 @@
 package server.socketServer;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.bind.JAXBException;
+
 import logging.Logger;
 import message.Message;
 import message.PingMessage;
@@ -8,18 +17,10 @@ import utils.Configurator;
 import utils.Util;
 import utils.XmlWorker;
 
-import javax.xml.bind.JAXBException;
-import java.io.File;
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Класс реализующий логику ServerSocket'a сервера.
  *
- * @author Almaz https://vk.com/almaz_kg
+ * @author Almaz
  */
 public class SocketServer {
     public static final int DEFAULT_PORT = 8083;
@@ -61,7 +62,6 @@ public class SocketServer {
 
         Thread pinger = new Thread(
                 new Runnable() {
-                    @Override
                     public void run() {
                         while (isActive) {
                             try {

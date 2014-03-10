@@ -11,7 +11,7 @@ import java.util.List;
  * 
  */
 public class UsersData {
-    private List<User> users = new ArrayList<>();
+    private List<User> users = new ArrayList<User>();
 
     @XmlElement(name="user")
     @XmlElementWrapper(name="users")

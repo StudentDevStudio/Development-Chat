@@ -1,14 +1,25 @@
 package client.model;
 
-import client.view.ChatView;
-import message.*;
-import users.User;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import message.AuthorizationMessage;
+import message.CloseConnectionMessage;
+import message.ErrorMessage;
+import message.Message;
+import message.PingMessage;
+import message.UserAuthorize;
+import users.User;
+import client.view.ChatView;
 
 /**
  * Класс, реализующий логику клиента.
@@ -19,7 +30,7 @@ import java.net.Socket;
  *
  */
 public class ChatModel {
-	javax.sound.sampled.AudioInputStream audioIn;
+	private AudioInputStream audioIn;
 	private Socket socket;
 	private ChatView view;
 	private boolean isConnected;
@@ -103,15 +114,15 @@ public class ChatModel {
 	public void startServerListening() {
 		Thread th = new Thread(new Runnable() {
 			int count = 0;
-			@Override
 			public void run() {
 				while (isConnected && isAuthorized) {
 					try {
 						Message msg = getResponce();
 						System.out.println("Iteration " + count++);
 						executeMessage(msg);
-					} catch (IOException
-							| ClassNotFoundException e) {
+					} catch (IOException e){
+					    view.showErrorMessage(e.getMessage());
+					} catch(ClassNotFoundException e) {
 						view.showErrorMessage(e.getMessage());
 					}
 				}
@@ -119,7 +130,7 @@ public class ChatModel {
 		});
 		th.start();
 	}
-    @Deprecated
+	
     /**
      * Не дописана основная логика
      * @param msg
@@ -127,22 +138,31 @@ public class ChatModel {
     protected void executeMessage(Message msg) {
         if(msg instanceof PingMessage)
             return;
-        if(msg instanceof UserAuthorize){
-            this.view.publishMessage("[" + msg.getUser().getLogin() + "] joined!");
-        	try {
-				playSound("src/main/sounds/loginMessage.wav");
-			} catch (javax.sound.sampled.UnsupportedAudioFileException | IOException | javax.sound.sampled.LineUnavailableException e) {
-				e.printStackTrace();
-			}
-        		}
-        else
-            this.view.publishMessage("[" + msg.getUser().getLogin() + "] say: " + msg.getMessage());
+        if (msg instanceof UserAuthorize) {
+            this.view.publishMessage("[" + msg.getUser().getLogin()
+                    + "] joined!");
+            try {
+                playSound("src/main/sounds/loginMessage.wav");
+            } catch (UnsupportedAudioFileException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (LineUnavailableException e) {
+                e.printStackTrace();
+            }
+        } else
+            this.view.publishMessage("[" + msg.getUser().getLogin() + "] say: "
+                    + msg.getMessage());
         try {
-			playSound("src/main/sounds/newMessage.wav");
-		} catch (javax.sound.sampled.UnsupportedAudioFileException | IOException | javax.sound.sampled.LineUnavailableException e) {
-			e.printStackTrace();
-		}
-    		}
+            playSound("src/main/sounds/newMessage.wav");
+        } catch (UnsupportedAudioFileException e) {
+            this.view.showErrorMessage(e.getMessage());
+        } catch (IOException e) {
+            this.view.showErrorMessage(e.getMessage());
+        } catch (LineUnavailableException e) {
+            this.view.showErrorMessage(e.getMessage());
+        }
+    }
       
 
     public boolean isConnected() {
@@ -164,9 +184,9 @@ public class ChatModel {
         this.user = user;
     }
     
-    public void playSound(String path) throws javax.sound.sampled.UnsupportedAudioFileException, IOException, javax.sound.sampled.LineUnavailableException{
-    	audioIn = javax.sound.sampled.AudioSystem.getAudioInputStream(new File(path));
-    	javax.sound.sampled.Clip clip = javax.sound.sampled.AudioSystem.getClip();
+    public void playSound(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+    	audioIn = AudioSystem.getAudioInputStream(new File(path));
+    	Clip clip = AudioSystem.getClip();
     	clip.open(audioIn);
     	clip.start();
     }

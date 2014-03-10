@@ -13,7 +13,6 @@ import users.User;
  * Т.е. в мессадже будет указан список - кому доставить это сообщение
  * 
  * @author Almaz
- * https://vk.com/almaz_kg
  */
 public class Message implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -21,14 +20,10 @@ public class Message implements Serializable{
 	private User user;
 	private String message;
 	
-	
 	public Message(){
 		this.date = new Date();
 	}
-	/**
-	 * Мессадж для клиентов от самого сервера
-	 * @param message
-	 */
+
 	public Message(String message){
 		this.message = message;
 		this.date = new Date();
