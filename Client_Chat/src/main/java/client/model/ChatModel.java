@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.text.SimpleDateFormat;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -18,6 +21,7 @@ import message.ErrorMessage;
 import message.Message;
 import message.PingMessage;
 import message.UserAuthorize;
+import message.UserDisconnected;
 import users.User;
 import client.view.ChatView;
 
@@ -30,13 +34,14 @@ import client.view.ChatView;
  *
  */
 public class ChatModel {
-	private AudioInputStream audioIn;
 	private Socket socket;
 	private ChatView view;
 	private boolean isConnected;
 	private boolean isAuthorized;
 	private User user;
-
+	private SimpleDateFormat formater;
+	
+	
     private volatile ObjectInputStream inputStream;
 	private volatile ObjectOutputStream outputStream;
 
@@ -45,6 +50,7 @@ public class ChatModel {
 		this.socket = ss;
 		this.inputStream = new ObjectInputStream(ss.getInputStream());
 		this.outputStream = new ObjectOutputStream(ss.getOutputStream());
+		this.formater = new SimpleDateFormat("HH:mm:ss");
 	}
 
 	public void sendMessage(Message message) throws IOException{
@@ -138,32 +144,46 @@ public class ChatModel {
     protected void executeMessage(Message msg) {
         if(msg instanceof PingMessage)
             return;
-        if (msg instanceof UserAuthorize) {
-            this.view.publishMessage("[" + msg.getUser().getLogin()
-                    + "] joined!");
-            try {
-                playSound("src/main/sounds/loginMessage.wav");
-            } catch (UnsupportedAudioFileException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (LineUnavailableException e) {
-                e.printStackTrace();
-            }
-        } else
-            this.view.publishMessage("[" + msg.getUser().getLogin() + "] say: "
-                    + msg.getMessage());
+        if(msg instanceof UserDisconnected){
+            this.view.publishMessage("[" + formater.format(msg.getDate()) + " "
+                    + msg.getUser().getLogin() + "] disconected!");
+            this.view.getMainTree().deleteOnlineUser(msg.getUser().getLogin());
+            this.view.getMainTree().addOfflineUser(msg.getUser().getLogin());
+        } else if (msg instanceof UserAuthorize) {
+            this.view.publishMessage("[" + formater.format(msg.getDate()) + " "
+                    + msg.getUser().getLogin() + "] joined!");
+            this.view.getMainTree().addOnlineUser(msg.getUser().getLogin());
+            
+            this.view.getMainTree().addOfflineUser(msg.getUser().getLogin());
+            
+            URL url = getClass().getResource("/sounds/loginMessage.wav");
+            System.out.println(url.toExternalForm());
+            playSound(getAudioInputStream(url));
+
+        } else {
+            this.view.publishMessage("[" + formater.format(msg.getDate()) + " "
+                    + msg.getUser().getLogin() + "] say: " + msg.getMessage());
+            
+            URL url = getClass().getResource("/sounds/newMessage.wav");
+            
+            playSound(getAudioInputStream(url));
+        }
+    }
+      
+
+    private AudioInputStream getAudioInputStream(URL url) {
         try {
-            playSound("src/main/sounds/newMessage.wav");
+            return AudioSystem.getAudioInputStream(new File(url.toURI()));
+            
         } catch (UnsupportedAudioFileException e) {
             this.view.showErrorMessage(e.getMessage());
         } catch (IOException e) {
             this.view.showErrorMessage(e.getMessage());
-        } catch (LineUnavailableException e) {
+        } catch(URISyntaxException e){
             this.view.showErrorMessage(e.getMessage());
         }
+        return null;
     }
-      
 
     public boolean isConnected() {
         return isConnected;
@@ -184,11 +204,17 @@ public class ChatModel {
         this.user = user;
     }
     
-    public void playSound(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
-    	audioIn = AudioSystem.getAudioInputStream(new File(path));
-    	Clip clip = AudioSystem.getClip();
-    	clip.open(audioIn);
-    	clip.start();
+    public void playSound(AudioInputStream sound){
+    	try {
+    	    Clip clip = AudioSystem.getClip();
+            clip.open(sound);
+
+            clip.start();
+    	} catch (LineUnavailableException e) {
+    	    this.view.showErrorMessage(e.getMessage());
+        }  catch (IOException e) {
+            this.view.showErrorMessage(e.getMessage());
+        }
     }
 
 }

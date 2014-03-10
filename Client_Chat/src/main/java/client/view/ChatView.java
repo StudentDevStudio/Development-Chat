@@ -24,10 +24,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
-import javax.swing.JTree;
 import javax.swing.KeyStroke;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import message.Message;
 import client.model.ChatModel;
@@ -68,7 +68,7 @@ public class ChatView extends JFrame {
     private JTextPane mainTextPane;
     private JTextArea infoTextArea;
     
-    private JTree mainTree;
+    private UsersTree mainTree;
     private SmileChooser smileChooser;
 	private ChatModel chatModel;
     
@@ -82,7 +82,8 @@ public class ChatView extends JFrame {
 		String text = this.publishTextPane.getText();
 		this.publishTextPane.setText(text + "\n" + message);
 	}
-	private void initComponents() {
+
+    private void initComponents() {
         createElements();
         this.setTitle(TITLE);
         this.setIconImage(new ImageIcon(getClass().getResource("/images/icons/comments.png")).getImage());
@@ -363,6 +364,8 @@ public class ChatView extends JFrame {
         
         smileChooser = new SmileChooser(this, false);
         
+        mainTree = new UsersTree(new UsersTreeModel(new DefaultMutableTreeNode("Users")));
+        
         mainMenuBar = new JMenuBar();
         aboutMenuItem = new JMenuItem();
         connectMenuItem = new JMenuItem();
@@ -378,6 +381,13 @@ public class ChatView extends JFrame {
     public void insertIconToTextPane(Icon icon) {
         this.mainTextPane.insertIcon(icon);
     }
+    public UsersTree getMainTree() {
+        return mainTree;
+    }
+    
+    
+    
+
     
 
     /**
