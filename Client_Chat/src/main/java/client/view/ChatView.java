@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 import javax.swing.AbstractAction;
@@ -31,6 +33,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import message.Message;
 import client.model.ChatModel;
+import client.userstree.UsersTree;
+import client.userstree.UsersTreeModel;
 
 /**
  * Главный клиентский интерфейс
@@ -68,7 +72,7 @@ public class ChatView extends JFrame {
     private JTextPane mainTextPane;
     private JTextArea infoTextArea;
     
-    private UsersTree mainTree;
+    private UsersTree usersTree;
     private SmileChooser smileChooser;
 	private ChatModel chatModel;
     
@@ -89,7 +93,13 @@ public class ChatView extends JFrame {
         this.setIconImage(new ImageIcon(getClass().getResource("/images/icons/comments.png")).getImage());
         this.setResizable(false);
         this.setLocation(250,150);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+        	 public void windowClosing(WindowEvent event) {
+        		 exitMenuItemClicked(null);
+             }
+		});
+        
         
         mainTextPane.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,2), "enter");
         mainTextPane.getActionMap().put("enter", new AbstractAction() {
@@ -132,7 +142,7 @@ public class ChatView extends JFrame {
         });
         
         jScrollPane3.setViewportView(mainTextPane);
-        jScrollPane2.setViewportView(mainTree);
+        jScrollPane2.setViewportView(usersTree);
         jScrollPane4.setViewportView(infoTextArea);
         jScrollPane1.setViewportView(publishTextPane);
         
@@ -158,29 +168,33 @@ public class ChatView extends JFrame {
         if(!this.connectionStatus.isSelected()){
             if(this.chatModel == null)
                 return;
-             try {
-                if(this.chatModel.isConnected()){
-                    this.chatModel.close();
-                    this.chatModel.setConnected(false);
-                    this.showInformationMessage("Connection closed");
-                    this.setTitle(TITLE);
-                }
-            } catch (IOException ex) {
-                this.showErrorMessage(ex.getMessage());
-            }
-            this.connectionStatus.setSelected(false);
+			if (this.chatModel.isConnected()) {
+				disconnectMenuItemClicked(e);
+			}
         } else{
         	this.connectionStatus.setSelected(false); // Если это убрать - получится так, что даже если еще не подключились, радиобаттон будет отображать статус: Подключено
         
         	this.connectMenuItemClicked(e);
-        	/**
-        	 * TODO: Здесь необходимо реализовать проверку на успешность подключения, пока реализован костыль
-        	 * 
-        	 */
         	if(this.chatModel != null && this.chatModel.isAuthorized()){
         		this.connectionStatus.setSelected(true);
         		this.chatModel.setConnected(true);
         	}
+        }
+    }
+    protected void disconnectMenuItemClicked(ActionEvent e) {
+        if(this.chatModel != null && this.chatModel.isConnected()){
+            try {
+                this.chatModel.close();
+                this.connectionStatus.setSelected(false);
+                
+                this.showInformationMessage("Connection closed");
+                this.usersTree.clear();
+                this.setTitle(TITLE);
+            } catch (IOException ex) {
+                this.showErrorMessage(ex.getMessage());
+            }
+        }else{
+            this.showInformationMessage("You have not active connection");
         }
     }
     
@@ -212,15 +226,16 @@ public class ChatView extends JFrame {
     }
     protected void exitMenuItemClicked(ActionEvent e) {
         int reply = JOptionPane.showConfirmDialog(this, "Do you really want to exit?", "Exit", JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.YES_OPTION){
-        	if(this.chatModel.isConnected())
-				try {
-					this.chatModel.close();
-				} catch (IOException ex) {
-					this.showErrorMessage(ex.getMessage());
-				}
-            this.dispose();
-        }
+        if (reply == JOptionPane.NO_OPTION)
+        	return;
+        
+    	if(this.chatModel != null && this.chatModel.isConnected())
+			try {
+				this.chatModel.close();
+			} catch (IOException ex) {
+				this.showErrorMessage(ex.getMessage());
+			}
+        this.dispose();
     }
     protected void smileButtonClicked(ActionEvent e) {
     	Point pos = this.getLocationOnScreen();
@@ -232,20 +247,7 @@ public class ChatView extends JFrame {
     		this.smileChooser.setVisible(true);
     	}
 	}
-    protected void disconnectMenuItemClicked(ActionEvent e) {
-        if(this.chatModel != null && this.chatModel.isConnected()){
-            try {
-                this.chatModel.close();
-                this.connectionStatus.setSelected(false);
-                
-                this.showInformationMessage("Connection closed");
-            } catch (IOException ex) {
-                this.showErrorMessage(ex.getMessage());
-            }
-        }else{
-            this.showInformationMessage("You have not active connection");
-        }
-    }
+   
    
 
 	protected void connectMenuItemClicked(ActionEvent e) {
@@ -364,7 +366,7 @@ public class ChatView extends JFrame {
         
         smileChooser = new SmileChooser(this, false);
         
-        mainTree = new UsersTree(new UsersTreeModel(new DefaultMutableTreeNode("Users")));
+        usersTree = new UsersTree(new UsersTreeModel(new DefaultMutableTreeNode("Users")));
         
         mainMenuBar = new JMenuBar();
         aboutMenuItem = new JMenuItem();
@@ -382,7 +384,7 @@ public class ChatView extends JFrame {
         this.mainTextPane.insertIcon(icon);
     }
     public UsersTree getMainTree() {
-        return mainTree;
+        return usersTree;
     }
     
     
@@ -494,10 +496,6 @@ public class ChatView extends JFrame {
                 .addContainerGap())
         );
     }
-
-  
-
-   
 
   
 }

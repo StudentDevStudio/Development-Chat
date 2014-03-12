@@ -41,7 +41,6 @@ public class ChatModel {
 	private User user;
 	private SimpleDateFormat formater;
 	
-	
     private volatile ObjectInputStream inputStream;
 	private volatile ObjectOutputStream outputStream;
 
@@ -99,12 +98,12 @@ public class ChatModel {
 		if(this.socket != null && this.socket.isConnected()){
 			sendMessage(new CloseConnectionMessage(this.user));
 			
+			this.setConnected(false);
+			this.setAuthorized(false);
+
 			this.inputStream.close();
 			this.outputStream.close();
 			this.socket.close();
-			
-			this.setConnected(false);
-			this.setAuthorized(false);
 		}
 	}
 
@@ -119,12 +118,10 @@ public class ChatModel {
      */    
 	public void startServerListening() {
 		Thread th = new Thread(new Runnable() {
-			int count = 0;
 			public void run() {
 				while (isConnected && isAuthorized) {
 					try {
 						Message msg = getResponce();
-						System.out.println("Iteration " + count++);
 						executeMessage(msg);
 					} catch (IOException e){
 					    view.showErrorMessage(e.getMessage());
@@ -136,24 +133,23 @@ public class ChatModel {
 		});
 		th.start();
 	}
-	
-    /**
-     * Не дописана основная логика
-     * @param msg
-     */
+
     protected void executeMessage(Message msg) {
         if(msg instanceof PingMessage)
             return;
         if(msg instanceof UserDisconnected){
             this.view.publishMessage("[" + formater.format(msg.getDate()) + " "
                     + msg.getUser().getLogin() + "] disconected!");
+        
             this.view.getMainTree().deleteOnlineUser(msg.getUser().getLogin());
+            this.view.getMainTree().addOfflineUser(msg.getUser().getLogin());
+        
         } else if (msg instanceof UserAuthorize) {
             this.view.publishMessage("[" + formater.format(msg.getDate()) + " "
                     + msg.getUser().getLogin() + "] joined!");
-            this.view.getMainTree().addOnlineUser(msg.getUser().getLogin());
             
-            this.view.getMainTree().addOfflineUser(msg.getUser().getLogin());
+            this.view.getMainTree().deleteOfflineUser(msg.getUser().getLogin());
+            this.view.getMainTree().addOnlineUser(msg.getUser().getLogin());
             
             URL url = getClass().getResource("/sounds/loginMessage.wav");
             playSound(getAudioInputStream(url));
@@ -162,9 +158,12 @@ public class ChatModel {
             this.view.publishMessage("[" + formater.format(msg.getDate()) + " "
                     + msg.getUser().getLogin() + "] say: " + msg.getMessage());
             
-            URL url = getClass().getResource("/sounds/newMessage.wav");
+            // Воспроизводим звуки, только для сообщений, оправленных другими юзерами
+            if(!msg.getUser().getLogin().equals(this.user.getLogin())){
+            	URL url = getClass().getResource("/sounds/newMessage.wav");
             
-            playSound(getAudioInputStream(url));
+            	playSound(getAudioInputStream(url));
+            }
         }
     }
       

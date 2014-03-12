@@ -1,0 +1,236 @@
+2014-03-12 17:34:59 ERROR root:29 - [ERROR] 
+2014-03-12 17:34:59 ERROR root:30 - 2014.03.12 05.34.59 MSK
+2014-03-12 17:34:59 ERROR root:31 - com.sun.xml.internal.bind.v2.runtime.IllegalAnnotationsException: 2 counts of IllegalAnnotationExceptions
+Property pass is present but not specified in @XmlType.propOrder
+	this problem is related to the following location:
+		at public java.lang.String users.User.getPass()
+		at users.User
+		at public java.util.List users.UsersData.getUsers()
+		at users.UsersData
+Property password appears in @XmlType.propOrder, but no such property exists. Maybe you meant pass?
+	this problem is related to the following location:
+		at users.User
+		at public java.util.List users.UsersData.getUsers()
+		at users.UsersData
+
+2014-03-12 17:34:59 INFO  root:35 - [INFO] 
+2014-03-12 17:34:59 INFO  root:36 - 2014.03.12 05.34.59 MSK
+2014-03-12 17:34:59 INFO  root:37 - Socket server started
+2014-03-12 17:34:59 INFO  root:35 - [INFO] 
+2014-03-12 17:34:59 INFO  root:36 - 2014.03.12 05.34.59 MSK
+2014-03-12 17:34:59 INFO  root:37 - Port: 81
+2014-03-12 17:35:47 INFO  root:35 - [INFO] 
+2014-03-12 17:35:47 INFO  root:36 - 2014.03.12 05.35.47 MSK
+2014-03-12 17:35:47 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 17:36:11 INFO  root:35 - [INFO] 
+2014-03-12 17:36:11 INFO  root:36 - 2014.03.12 05.36.11 MSK
+2014-03-12 17:36:11 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 17:36:51 ERROR root:29 - [ERROR] 
+2014-03-12 17:36:51 ERROR root:30 - 2014.03.12 05.36.51 MSK
+2014-03-12 17:36:51 ERROR root:31 - Client /127.0.0.1 has a problem: null
+2014-03-12 17:36:51 ERROR root:29 - [ERROR] 
+2014-03-12 17:36:51 ERROR root:30 - 2014.03.12 05.36.51 MSK
+2014-03-12 17:36:51 ERROR root:31 - User Almaz have a problem
+Software caused connection abort: socket write error
+2014-03-12 17:47:09 INFO  root:35 - [INFO] 
+2014-03-12 17:47:09 INFO  root:36 - 2014.03.12 05.47.09 MSK
+2014-03-12 17:47:09 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 17:47:22 INFO  root:35 - [INFO] 
+2014-03-12 17:47:22 INFO  root:36 - 2014.03.12 05.47.22 MSK
+2014-03-12 17:47:22 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 17:47:53 INFO  root:35 - [INFO] 
+2014-03-12 17:47:53 INFO  root:36 - 2014.03.12 05.47.53 MSK
+2014-03-12 17:47:53 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 17:48:21 ERROR root:29 - [ERROR] 
+2014-03-12 17:48:21 ERROR root:30 - 2014.03.12 05.48.21 MSK
+2014-03-12 17:48:21 ERROR root:31 - Client /127.0.0.1 has a problem: null
+2014-03-12 17:48:21 ERROR root:29 - [ERROR] 
+2014-03-12 17:48:21 ERROR root:30 - 2014.03.12 05.48.21 MSK
+2014-03-12 17:48:21 ERROR root:31 - User Almaz have a problem
+Software caused connection abort: socket write error
+2014-03-12 17:51:45 INFO  root:35 - [INFO] 
+2014-03-12 17:51:45 INFO  root:36 - 2014.03.12 05.51.45 MSK
+2014-03-12 17:51:45 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 17:51:58 INFO  root:35 - [INFO] 
+2014-03-12 17:51:58 INFO  root:36 - 2014.03.12 05.51.58 MSK
+2014-03-12 17:51:58 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 17:54:09 ERROR root:29 - [ERROR] 
+2014-03-12 17:54:09 ERROR root:30 - 2014.03.12 05.54.09 MSK
+2014-03-12 17:54:09 ERROR root:31 - Client /127.0.0.1 has a problem: null
+2014-03-12 17:54:09 ERROR root:29 - [ERROR] 
+2014-03-12 17:54:09 ERROR root:30 - 2014.03.12 05.54.09 MSK
+2014-03-12 17:54:09 ERROR root:31 - User Root have a problem
+Software caused connection abort: socket write error
+2014-03-12 17:54:11 ERROR root:29 - [ERROR] 
+2014-03-12 17:54:11 ERROR root:30 - 2014.03.12 05.54.11 MSK
+2014-03-12 17:54:11 ERROR root:31 - Client /127.0.0.1 has a problem: null
+2014-03-12 17:54:11 ERROR root:29 - [ERROR] 
+2014-03-12 17:54:11 ERROR root:30 - 2014.03.12 05.54.11 MSK
+2014-03-12 17:54:11 ERROR root:31 - User Almaz have a problem
+Software caused connection abort: socket write error
+2014-03-12 17:54:21 INFO  root:35 - [INFO] 
+2014-03-12 17:54:21 INFO  root:36 - 2014.03.12 05.54.21 MSK
+2014-03-12 17:54:21 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 17:54:27 INFO  root:35 - [INFO] 
+2014-03-12 17:54:27 INFO  root:36 - 2014.03.12 05.54.27 MSK
+2014-03-12 17:54:27 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 17:54:45 INFO  root:35 - [INFO] 
+2014-03-12 17:54:45 INFO  root:36 - 2014.03.12 05.54.45 MSK
+2014-03-12 17:54:45 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 17:55:04 ERROR root:29 - [ERROR] 
+2014-03-12 17:55:04 ERROR root:30 - 2014.03.12 05.55.04 MSK
+2014-03-12 17:55:04 ERROR root:31 - Client /127.0.0.1 has a problem: null
+2014-03-12 17:55:04 ERROR root:29 - [ERROR] 
+2014-03-12 17:55:04 ERROR root:30 - 2014.03.12 05.55.04 MSK
+2014-03-12 17:55:04 ERROR root:31 - User Almaz have a problem
+Software caused connection abort: socket write error
+2014-03-12 17:55:37 INFO  root:35 - [INFO] 
+2014-03-12 17:55:37 INFO  root:36 - 2014.03.12 05.55.37 MSK
+2014-03-12 17:55:37 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 17:55:44 INFO  root:35 - [INFO] 
+2014-03-12 17:55:44 INFO  root:36 - 2014.03.12 05.55.44 MSK
+2014-03-12 17:55:44 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 17:55:58 INFO  root:35 - [INFO] 
+2014-03-12 17:55:58 INFO  root:36 - 2014.03.12 05.55.58 MSK
+2014-03-12 17:55:58 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 17:56:10 ERROR root:29 - [ERROR] 
+2014-03-12 17:56:10 ERROR root:30 - 2014.03.12 05.56.10 MSK
+2014-03-12 17:56:10 ERROR root:31 - Client /127.0.0.1 has a problem: null
+2014-03-12 17:56:10 ERROR root:29 - [ERROR] 
+2014-03-12 17:56:10 ERROR root:30 - 2014.03.12 05.56.10 MSK
+2014-03-12 17:56:10 ERROR root:31 - User Almaz have a problem
+Software caused connection abort: socket write error
+2014-03-12 17:57:51 INFO  root:35 - [INFO] 
+2014-03-12 17:57:51 INFO  root:36 - 2014.03.12 05.57.51 MSK
+2014-03-12 17:57:51 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 17:57:57 INFO  root:35 - [INFO] 
+2014-03-12 17:57:57 INFO  root:36 - 2014.03.12 05.57.57 MSK
+2014-03-12 17:57:57 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 17:58:19 ERROR root:29 - [ERROR] 
+2014-03-12 17:58:19 ERROR root:30 - 2014.03.12 05.58.19 MSK
+2014-03-12 17:58:19 ERROR root:31 - Client /127.0.0.1 has a problem: null
+2014-03-12 17:58:19 ERROR root:29 - [ERROR] 
+2014-03-12 17:58:19 ERROR root:30 - 2014.03.12 05.58.19 MSK
+2014-03-12 17:58:19 ERROR root:31 - User Root have a problem
+Software caused connection abort: socket write error
+2014-03-12 18:10:22 INFO  root:35 - [INFO] 
+2014-03-12 18:10:22 INFO  root:36 - 2014.03.12 06.10.22 MSK
+2014-03-12 18:10:22 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:10:34 INFO  root:35 - [INFO] 
+2014-03-12 18:10:34 INFO  root:36 - 2014.03.12 06.10.34 MSK
+2014-03-12 18:10:34 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:12:06 INFO  root:35 - [INFO] 
+2014-03-12 18:12:06 INFO  root:36 - 2014.03.12 06.12.06 MSK
+2014-03-12 18:12:06 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:12:13 INFO  root:35 - [INFO] 
+2014-03-12 18:12:13 INFO  root:36 - 2014.03.12 06.12.13 MSK
+2014-03-12 18:12:13 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:12:38 INFO  root:35 - [INFO] 
+2014-03-12 18:12:38 INFO  root:36 - 2014.03.12 06.12.38 MSK
+2014-03-12 18:12:38 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:16:26 INFO  root:35 - [INFO] 
+2014-03-12 18:16:26 INFO  root:36 - 2014.03.12 06.16.26 MSK
+2014-03-12 18:16:26 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:16:32 INFO  root:35 - [INFO] 
+2014-03-12 18:16:32 INFO  root:36 - 2014.03.12 06.16.32 MSK
+2014-03-12 18:16:32 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:16:55 INFO  root:35 - [INFO] 
+2014-03-12 18:16:55 INFO  root:36 - 2014.03.12 06.16.55 MSK
+2014-03-12 18:16:55 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:18:21 INFO  root:35 - [INFO] 
+2014-03-12 18:18:21 INFO  root:36 - 2014.03.12 06.18.21 MSK
+2014-03-12 18:18:21 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:18:35 INFO  root:35 - [INFO] 
+2014-03-12 18:18:35 INFO  root:36 - 2014.03.12 06.18.35 MSK
+2014-03-12 18:18:35 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:18:46 INFO  root:35 - [INFO] 
+2014-03-12 18:18:46 INFO  root:36 - 2014.03.12 06.18.46 MSK
+2014-03-12 18:18:46 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:19:01 INFO  root:35 - [INFO] 
+2014-03-12 18:19:01 INFO  root:36 - 2014.03.12 06.19.01 MSK
+2014-03-12 18:19:01 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:20:31 INFO  root:35 - [INFO] 
+2014-03-12 18:20:31 INFO  root:36 - 2014.03.12 06.20.31 MSK
+2014-03-12 18:20:31 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:20:40 INFO  root:35 - [INFO] 
+2014-03-12 18:20:40 INFO  root:36 - 2014.03.12 06.20.40 MSK
+2014-03-12 18:20:40 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:20:57 INFO  root:35 - [INFO] 
+2014-03-12 18:20:57 INFO  root:36 - 2014.03.12 06.20.57 MSK
+2014-03-12 18:20:57 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:21:12 INFO  root:35 - [INFO] 
+2014-03-12 18:21:12 INFO  root:36 - 2014.03.12 06.21.12 MSK
+2014-03-12 18:21:12 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:25:53 INFO  root:35 - [INFO] 
+2014-03-12 18:25:53 INFO  root:36 - 2014.03.12 06.25.53 MSK
+2014-03-12 18:25:53 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:25:59 INFO  root:35 - [INFO] 
+2014-03-12 18:25:59 INFO  root:36 - 2014.03.12 06.25.59 MSK
+2014-03-12 18:25:59 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:27:24 INFO  root:35 - [INFO] 
+2014-03-12 18:27:24 INFO  root:36 - 2014.03.12 06.27.24 MSK
+2014-03-12 18:27:24 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:27:32 INFO  root:35 - [INFO] 
+2014-03-12 18:27:32 INFO  root:36 - 2014.03.12 06.27.32 MSK
+2014-03-12 18:27:32 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:30:51 INFO  root:35 - [INFO] 
+2014-03-12 18:30:51 INFO  root:36 - 2014.03.12 06.30.51 MSK
+2014-03-12 18:30:51 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:30:59 INFO  root:35 - [INFO] 
+2014-03-12 18:30:59 INFO  root:36 - 2014.03.12 06.30.59 MSK
+2014-03-12 18:30:59 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:33:23 INFO  root:35 - [INFO] 
+2014-03-12 18:33:23 INFO  root:36 - 2014.03.12 06.33.23 MSK
+2014-03-12 18:33:23 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:33:28 INFO  root:35 - [INFO] 
+2014-03-12 18:33:28 INFO  root:36 - 2014.03.12 06.33.28 MSK
+2014-03-12 18:33:28 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:34:13 INFO  root:35 - [INFO] 
+2014-03-12 18:34:13 INFO  root:36 - 2014.03.12 06.34.13 MSK
+2014-03-12 18:34:13 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 18:34:21 INFO  root:35 - [INFO] 
+2014-03-12 18:34:21 INFO  root:36 - 2014.03.12 06.34.21 MSK
+2014-03-12 18:34:21 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 19:11:59 INFO  root:35 - [INFO] 
+2014-03-12 19:11:59 INFO  root:36 - 2014.03.12 07.11.59 MSK
+2014-03-12 19:11:59 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 19:12:06 INFO  root:35 - [INFO] 
+2014-03-12 19:12:06 INFO  root:36 - 2014.03.12 07.12.06 MSK
+2014-03-12 19:12:06 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 19:13:43 INFO  root:35 - [INFO] 
+2014-03-12 19:13:43 INFO  root:36 - 2014.03.12 07.13.43 MSK
+2014-03-12 19:13:43 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 19:13:50 INFO  root:35 - [INFO] 
+2014-03-12 19:13:50 INFO  root:36 - 2014.03.12 07.13.50 MSK
+2014-03-12 19:13:50 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 19:15:46 INFO  root:35 - [INFO] 
+2014-03-12 19:15:46 INFO  root:36 - 2014.03.12 07.15.46 MSK
+2014-03-12 19:15:46 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 19:15:54 INFO  root:35 - [INFO] 
+2014-03-12 19:15:54 INFO  root:36 - 2014.03.12 07.15.54 MSK
+2014-03-12 19:15:54 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 19:17:31 INFO  root:35 - [INFO] 
+2014-03-12 19:17:31 INFO  root:36 - 2014.03.12 07.17.31 MSK
+2014-03-12 19:17:31 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 19:17:42 INFO  root:35 - [INFO] 
+2014-03-12 19:17:42 INFO  root:36 - 2014.03.12 07.17.42 MSK
+2014-03-12 19:17:42 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 19:19:16 INFO  root:35 - [INFO] 
+2014-03-12 19:19:16 INFO  root:36 - 2014.03.12 07.19.16 MSK
+2014-03-12 19:19:16 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 19:19:21 INFO  root:35 - [INFO] 
+2014-03-12 19:19:21 INFO  root:36 - 2014.03.12 07.19.21 MSK
+2014-03-12 19:19:21 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 19:20:45 INFO  root:35 - [INFO] 
+2014-03-12 19:20:45 INFO  root:36 - 2014.03.12 07.20.45 MSK
+2014-03-12 19:20:45 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 19:20:53 INFO  root:35 - [INFO] 
+2014-03-12 19:20:53 INFO  root:36 - 2014.03.12 07.20.53 MSK
+2014-03-12 19:20:53 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-12 19:21:33 ERROR root:29 - [ERROR] 
+2014-03-12 19:21:33 ERROR root:30 - 2014.03.12 07.21.33 MSK
+2014-03-12 19:21:33 ERROR root:31 - Client /127.0.0.1 has a problem: null
+2014-03-12 19:21:33 ERROR root:29 - [ERROR] 
+2014-03-12 19:21:33 ERROR root:30 - 2014.03.12 07.21.33 MSK
+2014-03-12 19:21:33 ERROR root:31 - User Almaz have a problem
+Software caused connection abort: socket write error

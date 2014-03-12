@@ -1,0 +1,387 @@
+2014-03-11 01:31:56 ERROR root:29 - [ERROR] 
+2014-03-11 01:31:56 ERROR root:30 - 2014.03.11 01.31.56 MSK
+2014-03-11 01:31:56 ERROR root:31 - com.sun.xml.internal.bind.v2.runtime.IllegalAnnotationsException: 2 counts of IllegalAnnotationExceptions
+Property pass is present but not specified in @XmlType.propOrder
+	this problem is related to the following location:
+		at public java.lang.String users.User.getPass()
+		at users.User
+		at public java.util.List users.UsersData.getUsers()
+		at users.UsersData
+Property password appears in @XmlType.propOrder, but no such property exists. Maybe you meant pass?
+	this problem is related to the following location:
+		at users.User
+		at public java.util.List users.UsersData.getUsers()
+		at users.UsersData
+
+2014-03-11 01:31:56 INFO  root:35 - [INFO] 
+2014-03-11 01:31:56 INFO  root:36 - 2014.03.11 01.31.56 MSK
+2014-03-11 01:31:56 INFO  root:37 - Socket server started
+2014-03-11 01:31:56 INFO  root:35 - [INFO] 
+2014-03-11 01:31:56 INFO  root:36 - 2014.03.11 01.31.56 MSK
+2014-03-11 01:31:56 INFO  root:37 - Port: 81
+2014-03-11 01:32:16 INFO  root:35 - [INFO] 
+2014-03-11 01:32:16 INFO  root:36 - 2014.03.11 01.32.16 MSK
+2014-03-11 01:32:16 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 01:32:37 INFO  root:35 - [INFO] 
+2014-03-11 01:32:37 INFO  root:36 - 2014.03.11 01.32.37 MSK
+2014-03-11 01:32:37 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 01:33:37 ERROR root:29 - [ERROR] 
+2014-03-11 01:33:37 ERROR root:30 - 2014.03.11 01.33.37 MSK
+2014-03-11 01:33:37 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 01:33:37 ERROR root:29 - [ERROR] 
+2014-03-11 01:33:37 ERROR root:30 - 2014.03.11 01.33.37 MSK
+2014-03-11 01:33:37 ERROR root:31 - User Almaz have a problem
+Connection reset by peer: socket write error
+2014-03-11 01:33:43 ERROR root:29 - [ERROR] 
+2014-03-11 01:33:43 ERROR root:30 - 2014.03.11 01.33.43 MSK
+2014-03-11 01:33:43 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 01:33:43 ERROR root:29 - [ERROR] 
+2014-03-11 01:33:43 ERROR root:30 - 2014.03.11 01.33.43 MSK
+2014-03-11 01:33:43 ERROR root:31 - User Root have a problem
+Connection reset by peer: socket write error
+2014-03-11 01:35:21 INFO  root:35 - [INFO] 
+2014-03-11 01:35:21 INFO  root:36 - 2014.03.11 01.35.21 MSK
+2014-03-11 01:35:21 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 01:35:30 INFO  root:35 - [INFO] 
+2014-03-11 01:35:30 INFO  root:36 - 2014.03.11 01.35.30 MSK
+2014-03-11 01:35:30 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 01:35:47 ERROR root:29 - [ERROR] 
+2014-03-11 01:35:47 ERROR root:30 - 2014.03.11 01.35.47 MSK
+2014-03-11 01:35:47 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 01:35:47 ERROR root:29 - [ERROR] 
+2014-03-11 01:35:47 ERROR root:30 - 2014.03.11 01.35.47 MSK
+2014-03-11 01:35:47 ERROR root:31 - User Almaz have a problem
+Connection reset by peer: socket write error
+2014-03-11 01:36:00 ERROR root:29 - [ERROR] 
+2014-03-11 01:36:00 ERROR root:30 - 2014.03.11 01.36.00 MSK
+2014-03-11 01:36:00 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 01:36:00 ERROR root:29 - [ERROR] 
+2014-03-11 01:36:00 ERROR root:30 - 2014.03.11 01.36.00 MSK
+2014-03-11 01:36:00 ERROR root:31 - User Root have a problem
+Connection reset by peer: socket write error
+2014-03-11 01:36:46 INFO  root:35 - [INFO] 
+2014-03-11 01:36:46 INFO  root:36 - 2014.03.11 01.36.46 MSK
+2014-03-11 01:36:46 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 01:36:55 INFO  root:35 - [INFO] 
+2014-03-11 01:36:55 INFO  root:36 - 2014.03.11 01.36.55 MSK
+2014-03-11 01:36:55 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 01:38:42 ERROR root:29 - [ERROR] 
+2014-03-11 01:38:42 ERROR root:30 - 2014.03.11 01.38.42 MSK
+2014-03-11 01:38:42 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 01:38:42 ERROR root:29 - [ERROR] 
+2014-03-11 01:38:42 ERROR root:30 - 2014.03.11 01.38.42 MSK
+2014-03-11 01:38:42 ERROR root:31 - User Root have a problem
+Connection reset by peer: socket write error
+2014-03-11 01:38:48 ERROR root:29 - [ERROR] 
+2014-03-11 01:38:48 ERROR root:30 - 2014.03.11 01.38.48 MSK
+2014-03-11 01:38:48 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 01:38:48 ERROR root:29 - [ERROR] 
+2014-03-11 01:38:48 ERROR root:30 - 2014.03.11 01.38.48 MSK
+2014-03-11 01:38:48 ERROR root:31 - User Almaz have a problem
+Connection reset by peer: socket write error
+2014-03-11 01:39:00 INFO  root:35 - [INFO] 
+2014-03-11 01:39:00 INFO  root:36 - 2014.03.11 01.39.00 MSK
+2014-03-11 01:39:00 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 01:39:10 INFO  root:35 - [INFO] 
+2014-03-11 01:39:10 INFO  root:36 - 2014.03.11 01.39.10 MSK
+2014-03-11 01:39:10 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 01:40:28 ERROR root:29 - [ERROR] 
+2014-03-11 01:40:28 ERROR root:30 - 2014.03.11 01.40.28 MSK
+2014-03-11 01:40:28 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 01:40:28 ERROR root:29 - [ERROR] 
+2014-03-11 01:40:28 ERROR root:30 - 2014.03.11 01.40.28 MSK
+2014-03-11 01:40:28 ERROR root:31 - User Almaz have a problem
+Connection reset by peer: socket write error
+2014-03-11 01:40:31 ERROR root:29 - [ERROR] 
+2014-03-11 01:40:31 ERROR root:30 - 2014.03.11 01.40.31 MSK
+2014-03-11 01:40:31 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 01:40:31 ERROR root:29 - [ERROR] 
+2014-03-11 01:40:31 ERROR root:30 - 2014.03.11 01.40.31 MSK
+2014-03-11 01:40:31 ERROR root:31 - User Root have a problem
+Connection reset by peer: socket write error
+2014-03-11 01:40:43 INFO  root:35 - [INFO] 
+2014-03-11 01:40:43 INFO  root:36 - 2014.03.11 01.40.43 MSK
+2014-03-11 01:40:43 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 01:40:51 INFO  root:35 - [INFO] 
+2014-03-11 01:40:51 INFO  root:36 - 2014.03.11 01.40.51 MSK
+2014-03-11 01:40:51 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 01:41:43 ERROR root:29 - [ERROR] 
+2014-03-11 01:41:43 ERROR root:30 - 2014.03.11 01.41.43 MSK
+2014-03-11 01:41:43 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 01:41:43 ERROR root:29 - [ERROR] 
+2014-03-11 01:41:43 ERROR root:30 - 2014.03.11 01.41.43 MSK
+2014-03-11 01:41:43 ERROR root:31 - User Almaz have a problem
+Connection reset by peer: socket write error
+2014-03-11 01:41:47 ERROR root:29 - [ERROR] 
+2014-03-11 01:41:47 ERROR root:30 - 2014.03.11 01.41.47 MSK
+2014-03-11 01:41:47 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 01:41:47 ERROR root:29 - [ERROR] 
+2014-03-11 01:41:47 ERROR root:30 - 2014.03.11 01.41.47 MSK
+2014-03-11 01:41:47 ERROR root:31 - User Root have a problem
+Connection reset by peer: socket write error
+2014-03-11 01:42:01 INFO  root:35 - [INFO] 
+2014-03-11 01:42:01 INFO  root:36 - 2014.03.11 01.42.01 MSK
+2014-03-11 01:42:01 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 01:42:11 INFO  root:35 - [INFO] 
+2014-03-11 01:42:11 INFO  root:36 - 2014.03.11 01.42.11 MSK
+2014-03-11 01:42:11 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 01:46:12 ERROR root:29 - [ERROR] 
+2014-03-11 01:46:12 ERROR root:30 - 2014.03.11 01.46.12 MSK
+2014-03-11 01:46:12 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 01:46:12 ERROR root:29 - [ERROR] 
+2014-03-11 01:46:12 ERROR root:30 - 2014.03.11 01.46.12 MSK
+2014-03-11 01:46:12 ERROR root:31 - User Almaz have a problem
+Connection reset by peer: socket write error
+2014-03-11 01:46:16 ERROR root:29 - [ERROR] 
+2014-03-11 01:46:16 ERROR root:30 - 2014.03.11 01.46.16 MSK
+2014-03-11 01:46:16 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 01:46:16 ERROR root:29 - [ERROR] 
+2014-03-11 01:46:16 ERROR root:30 - 2014.03.11 01.46.16 MSK
+2014-03-11 01:46:16 ERROR root:31 - User Root have a problem
+Connection reset by peer: socket write error
+2014-03-11 01:46:31 INFO  root:35 - [INFO] 
+2014-03-11 01:46:31 INFO  root:36 - 2014.03.11 01.46.31 MSK
+2014-03-11 01:46:31 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 01:46:42 INFO  root:35 - [INFO] 
+2014-03-11 01:46:42 INFO  root:36 - 2014.03.11 01.46.42 MSK
+2014-03-11 01:46:42 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 01:47:51 ERROR root:29 - [ERROR] 
+2014-03-11 01:47:51 ERROR root:30 - 2014.03.11 01.47.51 MSK
+2014-03-11 01:47:51 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 01:47:51 ERROR root:29 - [ERROR] 
+2014-03-11 01:47:51 ERROR root:30 - 2014.03.11 01.47.51 MSK
+2014-03-11 01:47:51 ERROR root:31 - User Root have a problem
+Connection reset by peer: socket write error
+2014-03-11 01:47:55 ERROR root:29 - [ERROR] 
+2014-03-11 01:47:55 ERROR root:30 - 2014.03.11 01.47.55 MSK
+2014-03-11 01:47:55 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 01:47:55 ERROR root:29 - [ERROR] 
+2014-03-11 01:47:55 ERROR root:30 - 2014.03.11 01.47.55 MSK
+2014-03-11 01:47:55 ERROR root:31 - User Almaz have a problem
+Connection reset by peer: socket write error
+2014-03-11 01:48:05 INFO  root:35 - [INFO] 
+2014-03-11 01:48:05 INFO  root:36 - 2014.03.11 01.48.05 MSK
+2014-03-11 01:48:05 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 01:48:14 INFO  root:35 - [INFO] 
+2014-03-11 01:48:14 INFO  root:36 - 2014.03.11 01.48.14 MSK
+2014-03-11 01:48:14 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 01:49:21 ERROR root:29 - [ERROR] 
+2014-03-11 01:49:21 ERROR root:30 - 2014.03.11 01.49.21 MSK
+2014-03-11 01:49:21 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 01:49:21 ERROR root:29 - [ERROR] 
+2014-03-11 01:49:21 ERROR root:30 - 2014.03.11 01.49.21 MSK
+2014-03-11 01:49:21 ERROR root:31 - User Root have a problem
+Connection reset by peer: socket write error
+2014-03-11 01:49:22 ERROR root:29 - [ERROR] 
+2014-03-11 01:49:22 ERROR root:30 - 2014.03.11 01.49.22 MSK
+2014-03-11 01:49:22 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 01:49:22 ERROR root:29 - [ERROR] 
+2014-03-11 01:49:22 ERROR root:30 - 2014.03.11 01.49.22 MSK
+2014-03-11 01:49:22 ERROR root:31 - User Almaz have a problem
+Connection reset by peer: socket write error
+2014-03-11 02:00:03 INFO  root:35 - [INFO] 
+2014-03-11 02:00:03 INFO  root:36 - 2014.03.11 02.00.03 MSK
+2014-03-11 02:00:03 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:00:11 INFO  root:35 - [INFO] 
+2014-03-11 02:00:11 INFO  root:36 - 2014.03.11 02.00.11 MSK
+2014-03-11 02:00:11 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:09:03 ERROR root:29 - [ERROR] 
+2014-03-11 02:09:03 ERROR root:30 - 2014.03.11 02.09.03 MSK
+2014-03-11 02:09:03 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 02:09:03 ERROR root:29 - [ERROR] 
+2014-03-11 02:09:03 ERROR root:30 - 2014.03.11 02.09.03 MSK
+2014-03-11 02:09:03 ERROR root:31 - User Root have a problem
+Connection reset by peer: socket write error
+2014-03-11 02:09:06 ERROR root:29 - [ERROR] 
+2014-03-11 02:09:06 ERROR root:30 - 2014.03.11 02.09.06 MSK
+2014-03-11 02:09:06 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 02:09:06 ERROR root:29 - [ERROR] 
+2014-03-11 02:09:06 ERROR root:30 - 2014.03.11 02.09.06 MSK
+2014-03-11 02:09:06 ERROR root:31 - User Root have a problem
+Connection reset by peer: socket write error
+2014-03-11 02:09:18 INFO  root:35 - [INFO] 
+2014-03-11 02:09:18 INFO  root:36 - 2014.03.11 02.09.18 MSK
+2014-03-11 02:09:18 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:09:26 INFO  root:35 - [INFO] 
+2014-03-11 02:09:26 INFO  root:36 - 2014.03.11 02.09.26 MSK
+2014-03-11 02:09:26 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:10:49 ERROR root:29 - [ERROR] 
+2014-03-11 02:10:49 ERROR root:30 - 2014.03.11 02.10.49 MSK
+2014-03-11 02:10:49 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 02:10:49 ERROR root:29 - [ERROR] 
+2014-03-11 02:10:49 ERROR root:30 - 2014.03.11 02.10.49 MSK
+2014-03-11 02:10:49 ERROR root:31 - User Root have a problem
+Connection reset by peer: socket write error
+2014-03-11 02:10:51 ERROR root:29 - [ERROR] 
+2014-03-11 02:10:51 ERROR root:30 - 2014.03.11 02.10.51 MSK
+2014-03-11 02:10:51 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 02:10:51 ERROR root:29 - [ERROR] 
+2014-03-11 02:10:51 ERROR root:30 - 2014.03.11 02.10.51 MSK
+2014-03-11 02:10:51 ERROR root:31 - User Almaz have a problem
+Connection reset by peer: socket write error
+2014-03-11 02:11:12 INFO  root:35 - [INFO] 
+2014-03-11 02:11:12 INFO  root:36 - 2014.03.11 02.11.12 MSK
+2014-03-11 02:11:12 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:11:25 INFO  root:35 - [INFO] 
+2014-03-11 02:11:25 INFO  root:36 - 2014.03.11 02.11.25 MSK
+2014-03-11 02:11:25 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:15:17 ERROR root:29 - [ERROR] 
+2014-03-11 02:15:17 ERROR root:30 - 2014.03.11 02.15.17 MSK
+2014-03-11 02:15:17 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 02:15:17 ERROR root:29 - [ERROR] 
+2014-03-11 02:15:17 ERROR root:30 - 2014.03.11 02.15.17 MSK
+2014-03-11 02:15:17 ERROR root:31 - User Almaz have a problem
+Connection reset by peer: socket write error
+2014-03-11 02:15:17 ERROR root:29 - [ERROR] 
+2014-03-11 02:15:17 ERROR root:30 - 2014.03.11 02.15.17 MSK
+2014-03-11 02:15:17 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 02:15:17 ERROR root:29 - [ERROR] 
+2014-03-11 02:15:17 ERROR root:30 - 2014.03.11 02.15.17 MSK
+2014-03-11 02:15:17 ERROR root:31 - User Root have a problem
+Connection reset by peer: socket write error
+2014-03-11 02:15:52 INFO  root:35 - [INFO] 
+2014-03-11 02:15:52 INFO  root:36 - 2014.03.11 02.15.52 MSK
+2014-03-11 02:15:52 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:16:06 INFO  root:35 - [INFO] 
+2014-03-11 02:16:06 INFO  root:36 - 2014.03.11 02.16.06 MSK
+2014-03-11 02:16:06 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:16:39 ERROR root:29 - [ERROR] 
+2014-03-11 02:16:39 ERROR root:30 - 2014.03.11 02.16.39 MSK
+2014-03-11 02:16:39 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 02:16:39 ERROR root:29 - [ERROR] 
+2014-03-11 02:16:39 ERROR root:30 - 2014.03.11 02.16.39 MSK
+2014-03-11 02:16:39 ERROR root:31 - User Root have a problem
+Connection reset by peer: socket write error
+2014-03-11 02:16:41 ERROR root:29 - [ERROR] 
+2014-03-11 02:16:41 ERROR root:30 - 2014.03.11 02.16.41 MSK
+2014-03-11 02:16:41 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 02:16:41 ERROR root:29 - [ERROR] 
+2014-03-11 02:16:41 ERROR root:30 - 2014.03.11 02.16.41 MSK
+2014-03-11 02:16:41 ERROR root:31 - User Almaz have a problem
+Connection reset by peer: socket write error
+2014-03-11 02:17:00 INFO  root:35 - [INFO] 
+2014-03-11 02:17:00 INFO  root:36 - 2014.03.11 02.17.00 MSK
+2014-03-11 02:17:00 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:17:07 INFO  root:35 - [INFO] 
+2014-03-11 02:17:07 INFO  root:36 - 2014.03.11 02.17.07 MSK
+2014-03-11 02:17:07 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:18:00 ERROR root:29 - [ERROR] 
+2014-03-11 02:18:00 ERROR root:30 - 2014.03.11 02.18.00 MSK
+2014-03-11 02:18:00 ERROR root:31 - User Almaz have a problem
+Software caused connection abort: socket write error
+2014-03-11 02:20:02 ERROR root:29 - [ERROR] 
+2014-03-11 02:20:02 ERROR root:30 - 2014.03.11 02.20.02 MSK
+2014-03-11 02:20:02 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 02:20:02 ERROR root:29 - [ERROR] 
+2014-03-11 02:20:02 ERROR root:30 - 2014.03.11 02.20.02 MSK
+2014-03-11 02:20:02 ERROR root:31 - User Root have a problem
+Connection reset by peer: socket write error
+2014-03-11 02:20:19 INFO  root:35 - [INFO] 
+2014-03-11 02:20:19 INFO  root:36 - 2014.03.11 02.20.19 MSK
+2014-03-11 02:20:19 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:20:28 INFO  root:35 - [INFO] 
+2014-03-11 02:20:28 INFO  root:36 - 2014.03.11 02.20.28 MSK
+2014-03-11 02:20:28 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:20:41 ERROR root:29 - [ERROR] 
+2014-03-11 02:20:41 ERROR root:30 - 2014.03.11 02.20.41 MSK
+2014-03-11 02:20:41 ERROR root:31 - User Almaz have a problem
+Software caused connection abort: socket write error
+2014-03-11 02:20:51 ERROR root:29 - [ERROR] 
+2014-03-11 02:20:51 ERROR root:30 - 2014.03.11 02.20.51 MSK
+2014-03-11 02:20:51 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 02:20:51 ERROR root:29 - [ERROR] 
+2014-03-11 02:20:52 ERROR root:30 - 2014.03.11 02.20.52 MSK
+2014-03-11 02:20:52 ERROR root:31 - User Root have a problem
+Connection reset by peer: socket write error
+2014-03-11 02:21:58 INFO  root:35 - [INFO] 
+2014-03-11 02:21:58 INFO  root:36 - 2014.03.11 02.21.58 MSK
+2014-03-11 02:21:58 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:22:05 INFO  root:35 - [INFO] 
+2014-03-11 02:22:05 INFO  root:36 - 2014.03.11 02.22.05 MSK
+2014-03-11 02:22:05 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:22:21 ERROR root:29 - [ERROR] 
+2014-03-11 02:22:21 ERROR root:30 - 2014.03.11 02.22.21 MSK
+2014-03-11 02:22:21 ERROR root:31 - User Almaz have a problem
+Software caused connection abort: socket write error
+2014-03-11 02:28:11 ERROR root:29 - [ERROR] 
+2014-03-11 02:28:11 ERROR root:30 - 2014.03.11 02.28.11 MSK
+2014-03-11 02:28:11 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 02:28:11 ERROR root:29 - [ERROR] 
+2014-03-11 02:28:11 ERROR root:30 - 2014.03.11 02.28.11 MSK
+2014-03-11 02:28:11 ERROR root:31 - User Root have a problem
+Connection reset by peer: socket write error
+2014-03-11 02:28:26 INFO  root:35 - [INFO] 
+2014-03-11 02:28:26 INFO  root:36 - 2014.03.11 02.28.26 MSK
+2014-03-11 02:28:26 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:28:34 INFO  root:35 - [INFO] 
+2014-03-11 02:28:34 INFO  root:36 - 2014.03.11 02.28.34 MSK
+2014-03-11 02:28:34 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:28:49 ERROR root:29 - [ERROR] 
+2014-03-11 02:28:49 ERROR root:30 - 2014.03.11 02.28.49 MSK
+2014-03-11 02:28:49 ERROR root:31 - User Almaz have a problem
+Software caused connection abort: socket write error
+2014-03-11 02:29:14 ERROR root:29 - [ERROR] 
+2014-03-11 02:29:14 ERROR root:30 - 2014.03.11 02.29.14 MSK
+2014-03-11 02:29:14 ERROR root:31 - User Root have a problem
+Software caused connection abort: socket write error
+2014-03-11 02:30:51 INFO  root:35 - [INFO] 
+2014-03-11 02:30:51 INFO  root:36 - 2014.03.11 02.30.51 MSK
+2014-03-11 02:30:51 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:31:04 INFO  root:35 - [INFO] 
+2014-03-11 02:31:04 INFO  root:36 - 2014.03.11 02.31.04 MSK
+2014-03-11 02:31:04 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:31:18 ERROR root:29 - [ERROR] 
+2014-03-11 02:31:18 ERROR root:30 - 2014.03.11 02.31.18 MSK
+2014-03-11 02:31:18 ERROR root:31 - User Almaz have a problem
+Software caused connection abort: socket write error
+2014-03-11 02:32:02 ERROR root:29 - [ERROR] 
+2014-03-11 02:32:02 ERROR root:30 - 2014.03.11 02.32.02 MSK
+2014-03-11 02:32:02 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 02:32:02 ERROR root:29 - [ERROR] 
+2014-03-11 02:32:02 ERROR root:30 - 2014.03.11 02.32.02 MSK
+2014-03-11 02:32:02 ERROR root:31 - User Root have a problem
+Connection reset by peer: socket write error
+2014-03-11 02:32:41 INFO  root:35 - [INFO] 
+2014-03-11 02:32:41 INFO  root:36 - 2014.03.11 02.32.41 MSK
+2014-03-11 02:32:41 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:32:49 INFO  root:35 - [INFO] 
+2014-03-11 02:32:49 INFO  root:36 - 2014.03.11 02.32.49 MSK
+2014-03-11 02:32:49 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:33:14 ERROR root:29 - [ERROR] 
+2014-03-11 02:33:14 ERROR root:30 - 2014.03.11 02.33.14 MSK
+2014-03-11 02:33:14 ERROR root:31 - User Root have a problem
+Software caused connection abort: socket write error
+2014-03-11 02:34:24 INFO  root:35 - [INFO] 
+2014-03-11 02:34:24 INFO  root:36 - 2014.03.11 02.34.24 MSK
+2014-03-11 02:34:24 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:34:41 ERROR root:29 - [ERROR] 
+2014-03-11 02:34:41 ERROR root:30 - 2014.03.11 02.34.41 MSK
+2014-03-11 02:34:41 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 02:34:41 ERROR root:29 - [ERROR] 
+2014-03-11 02:34:41 ERROR root:30 - 2014.03.11 02.34.41 MSK
+2014-03-11 02:34:41 ERROR root:31 - User Almaz have a problem
+Connection reset by peer: socket write error
+2014-03-11 02:34:42 ERROR root:29 - [ERROR] 
+2014-03-11 02:34:42 ERROR root:30 - 2014.03.11 02.34.42 MSK
+2014-03-11 02:34:42 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 02:34:42 ERROR root:29 - [ERROR] 
+2014-03-11 02:34:42 ERROR root:30 - 2014.03.11 02.34.42 MSK
+2014-03-11 02:34:42 ERROR root:31 - User Root have a problem
+Connection reset by peer: socket write error
+2014-03-11 02:35:32 INFO  root:35 - [INFO] 
+2014-03-11 02:35:32 INFO  root:36 - 2014.03.11 02.35.32 MSK
+2014-03-11 02:35:32 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:35:44 INFO  root:35 - [INFO] 
+2014-03-11 02:35:44 INFO  root:36 - 2014.03.11 02.35.44 MSK
+2014-03-11 02:35:44 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-11 02:35:59 ERROR root:29 - [ERROR] 
+2014-03-11 02:35:59 ERROR root:30 - 2014.03.11 02.35.59 MSK
+2014-03-11 02:35:59 ERROR root:31 - User Root have a problem
+Software caused connection abort: socket write error
+2014-03-11 02:47:24 ERROR root:29 - [ERROR] 
+2014-03-11 02:47:24 ERROR root:30 - 2014.03.11 02.47.24 MSK
+2014-03-11 02:47:24 ERROR root:31 - Client /127.0.0.1 has a problem: Connection reset
+2014-03-11 02:47:24 ERROR root:29 - [ERROR] 
+2014-03-11 02:47:24 ERROR root:30 - 2014.03.11 02.47.24 MSK
+2014-03-11 02:47:24 ERROR root:31 - User Almaz have a problem
+Connection reset by peer: socket write error
