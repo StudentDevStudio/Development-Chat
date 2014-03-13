@@ -1,0 +1,50 @@
+2014-03-13 10:45:27 ERROR root:29 - [ERROR] 
+2014-03-13 10:45:27 ERROR root:30 - 2014.03.13 10.45.27 MSK
+2014-03-13 10:45:27 ERROR root:31 - com.sun.xml.internal.bind.v2.runtime.IllegalAnnotationsException: 2 counts of IllegalAnnotationExceptions
+Property pass is present but not specified in @XmlType.propOrder
+	this problem is related to the following location:
+		at public java.lang.String users.User.getPass()
+		at users.User
+		at public java.util.List users.UsersData.getUsers()
+		at users.UsersData
+Property password appears in @XmlType.propOrder, but no such property exists. Maybe you meant pass?
+	this problem is related to the following location:
+		at users.User
+		at public java.util.List users.UsersData.getUsers()
+		at users.UsersData
+
+2014-03-13 10:45:27 INFO  root:35 - [INFO] 
+2014-03-13 10:45:27 INFO  root:36 - 2014.03.13 10.45.27 MSK
+2014-03-13 10:45:27 INFO  root:37 - Socket server started
+2014-03-13 10:45:27 INFO  root:35 - [INFO] 
+2014-03-13 10:45:27 INFO  root:36 - 2014.03.13 10.45.27 MSK
+2014-03-13 10:45:27 INFO  root:37 - Port: 81
+2014-03-13 10:45:54 INFO  root:35 - [INFO] 
+2014-03-13 10:45:54 INFO  root:36 - 2014.03.13 10.45.54 MSK
+2014-03-13 10:45:54 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-13 10:46:12 INFO  root:35 - [INFO] 
+2014-03-13 10:46:12 INFO  root:36 - 2014.03.13 10.46.12 MSK
+2014-03-13 10:46:12 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-13 10:46:32 ERROR root:29 - [ERROR] 
+2014-03-13 10:46:32 ERROR root:30 - 2014.03.13 10.46.32 MSK
+2014-03-13 10:46:32 ERROR root:31 - Client /127.0.0.1 has a problem: null
+2014-03-13 10:46:32 ERROR root:29 - [ERROR] 
+2014-03-13 10:46:32 ERROR root:30 - 2014.03.13 10.46.32 MSK
+2014-03-13 10:46:32 ERROR root:31 - User Almaz have a problem
+Software caused connection abort: socket write error
+2014-03-13 10:46:36 ERROR root:29 - [ERROR] 
+2014-03-13 10:46:36 ERROR root:30 - 2014.03.13 10.46.36 MSK
+2014-03-13 10:46:36 ERROR root:31 - Client /127.0.0.1 has a problem: null
+2014-03-13 10:46:36 ERROR root:29 - [ERROR] 
+2014-03-13 10:46:36 ERROR root:30 - 2014.03.13 10.46.36 MSK
+2014-03-13 10:46:36 ERROR root:31 - User Root have a problem
+Software caused connection abort: socket write error
+2014-03-13 10:47:41 INFO  root:35 - [INFO] 
+2014-03-13 10:47:41 INFO  root:36 - 2014.03.13 10.47.41 MSK
+2014-03-13 10:47:41 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-13 10:47:48 INFO  root:35 - [INFO] 
+2014-03-13 10:47:48 INFO  root:36 - 2014.03.13 10.47.48 MSK
+2014-03-13 10:47:48 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-13 11:05:18 INFO  root:35 - [INFO] 
+2014-03-13 11:05:18 INFO  root:36 - 2014.03.13 11.05.18 MSK
+2014-03-13 11:05:18 INFO  root:37 - Client /127.0.0.1 connected

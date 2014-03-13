@@ -2,42 +2,44 @@ package client.userstree;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 
 public class UsersTree extends JTree {
     private static final long serialVersionUID = 3174242270208177085L;
-
+    private UsersTreeModel model;
+    
     public UsersTree(UsersTreeModel model){
         super(model);
+        this.model = model;
         setRootVisible(false);
-        UsersTreeRenderer renderer = new UsersTreeRenderer();
-        this.setCellRenderer(renderer);
+        this.setCellRenderer(new UsersTreeRenderer());
     }
     
     public void addOnlineUser(String userName){
-    	 UsersTreeModel model = (UsersTreeModel) this.getModel();
-         
-         model.addOnlineUser(userName);
-         expandRow(1);
+    	 model.addOnlineUser(userName);
+         expandAll();
     }
     public void deleteOnlineUser(String userName){
-       UsersTreeModel model = (UsersTreeModel) this.getModel();
-       
        model.deleteOnlineUser(userName);
-       expandRow(1);
+       expandAll();
     }
     public void addOfflineUser(String userName){
-    	UsersTreeModel model = (UsersTreeModel) this.getModel();
-        
-        model.addOfflineUser(userName);
-        expandRow(2);
+    	model.addOfflineUser(userName);
+        expandAll();
     }
     public void deleteOfflineUser(String userName){
-    	UsersTreeModel model = (UsersTreeModel) this.getModel();
-        
-        model.deleteOfflineUser(userName);
-        expandRow(2);
+    	model.deleteOfflineUser(userName);
+        expandAll();
     }
-
+    
+    private void expandAll(){
+    	TreePath offline = new TreePath(model.getOffline().getPath());
+        expandPath(offline);
+        
+        TreePath online = new TreePath(model.getOnline().getPath());
+        expandPath(online);
+        
+    }
 	public void clear() {
 		UsersTreeModel model = (UsersTreeModel) this.getModel();
         
@@ -51,4 +53,6 @@ public class UsersTree extends JTree {
         
         model.reload(root);
 	}
+	
+	
 }

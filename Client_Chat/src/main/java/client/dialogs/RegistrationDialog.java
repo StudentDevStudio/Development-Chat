@@ -1,4 +1,4 @@
-package client.view;
+package client.dialogs;
 
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -25,6 +25,7 @@ import message.RegistrationMessage;
 import message.UserAuthorize;
 import users.User;
 import client.model.ChatModel;
+import client.view.ChatView;
 
 /**
  * Диалог отвечающий за регистрацию нового пользователя

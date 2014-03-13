@@ -1,5 +1,6 @@
 package client.view;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,12 +19,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
@@ -32,6 +31,8 @@ import javax.swing.WindowConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import message.Message;
+import client.dialogs.About;
+import client.dialogs.ConnectionDialog;
 import client.model.ChatModel;
 import client.userstree.UsersTree;
 import client.userstree.UsersTreeModel;
@@ -44,37 +45,21 @@ import client.userstree.UsersTreeModel;
 public class ChatView extends JFrame {
     private static final long serialVersionUID = -7279794261227376309L;
     private static final String TITLE = "Life chat";
+
+    private UsersTree usersTree;
+    private SmileChooser smileChooser;
+	private ChatModel chatModel;
+    private ChatViewMenu menu;
+    
     private JRadioButton connectionStatus;
-    private JLabel constConnectionStatusLabel;
     private JButton sendButton;
     private JButton smileButton;
     private JButton attachButton;
-    private JMenu menuFile;
-    private JMenu menuParams;
-    private JMenu menuAbout;
-    private JMenuBar mainMenuBar;
-    private JMenuItem connectMenuItem;
-    private JMenuItem disconnectMenuItem;
-    private JMenuItem exitMenuItem;
-    private JMenuItem aboutMenuItem;
-    private JMenuItem chatSettingsMenuItems;
-    private JMenuItem sysSettingsMenuItem;
-    private JPanel jPanel1;
-    private JPanel jPanel2;
-    private JPanel jPanel3;
-    private JPanel jPanel4;
-    private JScrollPane jScrollPane1;
-    private JScrollPane jScrollPane2;
-    private JScrollPane jScrollPane3;
-    private JScrollPane jScrollPane4;
     
     private JTextPane publishTextPane;
     private JTextPane mainTextPane;
     private JTextArea infoTextArea;
-    
-    private UsersTree usersTree;
-    private SmileChooser smileChooser;
-	private ChatModel chatModel;
+
     
 	public ChatView() {
         initComponents();
@@ -91,7 +76,8 @@ public class ChatView extends JFrame {
         createElements();
         this.setTitle(TITLE);
         this.setIconImage(new ImageIcon(getClass().getResource("/images/icons/comments.png")).getImage());
-        this.setResizable(false);
+        this.setResizable(true);
+        this.setMinimumSize(new Dimension(600, 480));
         this.setLocation(250,150);
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
@@ -116,8 +102,6 @@ public class ChatView extends JFrame {
             }
         });
         
-        constConnectionStatusLabel.setText("Connection status: ");
-        
         publishTextPane.setEditable(false);
         
         sendButton.setIcon(new ImageIcon(getClass().getResource("/images/icons/edit.png")));
@@ -140,23 +124,16 @@ public class ChatView extends JFrame {
                 attachButtonClicked(e);
             }
         });
+     
+        JMenuBar bar = new JMenuBar();
+        bar.add(new JMenu("Hello"));
         
-        jScrollPane3.setViewportView(mainTextPane);
-        jScrollPane2.setViewportView(usersTree);
-        jScrollPane4.setViewportView(infoTextArea);
-        jScrollPane1.setViewportView(publishTextPane);
-        
-        initUserTree();
-        initMenuFile();
-        initMenuParams();
-        initAboutMenu();
-        setJMenuBar(mainMenuBar);
+        setJMenuBar(menu);
         
         initLayouts();
         pack();
     }
     
-   
 	/**
      * Этот метод реализует функцию отображения 
      * статуса подключения. Основная логика в этом
@@ -248,8 +225,6 @@ public class ChatView extends JFrame {
     	}
 	}
    
-   
-
 	protected void connectMenuItemClicked(ActionEvent e) {
         ConnectionDialog con = new ConnectionDialog(this, true);
         con.setVisible(true);
@@ -278,70 +253,7 @@ public class ChatView extends JFrame {
                 "Information message",
                 JOptionPane.PLAIN_MESSAGE);
     }
-    
-    private void initAboutMenu(){
-    	menuAbout.setText("About");
-    	menuAbout.add(aboutMenuItem);
-    	aboutMenuItem.setText("About");
-        aboutMenuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				aboutMenuItemClicked(e);
-			}
-		});
-        
-        mainMenuBar.add(menuAbout);
-    }
-    private void initMenuParams() {
-        menuParams.setText("Settings");
-
-        chatSettingsMenuItems.setText("Chat Settings");
-        menuParams.add(chatSettingsMenuItems);
-
-        sysSettingsMenuItem.setText("System Settings");
-        menuParams.add(sysSettingsMenuItem);
-        menuParams.add(new JSeparator());
-        
-        
-        mainMenuBar.add(menuParams);
-    }
-    private void initMenuFile() {
-        menuFile.setText("File");
-        
-        connectMenuItem.setText("Connect");
-        connectMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                connectMenuItemClicked(e);
-            }
-        });
-        menuFile.add(connectMenuItem);
-
-        disconnectMenuItem.setText("Disconnect");
-        disconnectMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                disconnectMenuItemClicked(e);
-            }
-        });
-        menuFile.add(disconnectMenuItem);
-        menuFile.add(new JSeparator());
-
-        exitMenuItem.setText("Exit");
-        exitMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                exitMenuItemClicked(e);
-            }
-        });
-        menuFile.add(exitMenuItem);
-
-        mainMenuBar.add(menuFile);
-    }
-  
-    
-    private void initUserTree(){
-    	/**
-    	 * TODO: Здесь будет инициализация дерева пользователей
-    	 * Этим щас занимается Илья Котов
-    	 */
-    }
+   
     private void createElements(){
         smileButton = new JButton();
         attachButton = new JButton();
@@ -352,79 +264,80 @@ public class ChatView extends JFrame {
         mainTextPane = new JTextPane();
         infoTextArea = new JTextArea();
         connectionStatus = new JRadioButton();
-        constConnectionStatusLabel = new JLabel();
-        
-        jPanel1 = new JPanel();
-        jPanel2 = new JPanel();
-        jPanel3 = new JPanel();
-        jPanel4 = new JPanel();
-        
-        jScrollPane1 = new JScrollPane();
-        jScrollPane2 = new JScrollPane();
-        jScrollPane3 = new JScrollPane();
-        jScrollPane4 = new JScrollPane();
         
         smileChooser = new SmileChooser(this, false);
         
         usersTree = new UsersTree(new UsersTreeModel(new DefaultMutableTreeNode("Users")));
-        
-        mainMenuBar = new JMenuBar();
-        aboutMenuItem = new JMenuItem();
-        connectMenuItem = new JMenuItem();
-        disconnectMenuItem = new JMenuItem();
-        chatSettingsMenuItems = new JMenuItem();
-        sysSettingsMenuItem = new JMenuItem();
-        exitMenuItem = new JMenuItem();
-        
-        menuFile = new JMenu();
-        menuParams = new JMenu();
-        menuAbout = new JMenu();
+        menu = new ChatViewMenu(this);
     }
     public void insertIconToTextPane(Icon icon) {
-        this.mainTextPane.insertIcon(icon);
+       /* TODO: В данном методе есть бага: Нельзя вставить 2 и более одинаковые смайлики последовательно
+		*	Т.е. нельзя вставить вот такую конструкцию:  
+		*	
+		*	Текст... Smile_1 Smile_1 ... текст
+		*	
+		*	В результате будет отображено 
+		*	
+		*	Текст... Smile_1 ... текст
+    	*/
+    	this.mainTextPane.insertIcon(icon);
+    	
+    	
     }
     public UsersTree getMainTree() {
         return usersTree;
     }
-    
-    
-    
-
-    
 
     /**
      * This is auto-generated code
      */
     private void initLayouts(){
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+    	JPanel jPanel1 = new JPanel();
+		JPanel jPanel2 = new JPanel();
+		JPanel jPanel3 = new JPanel();    
+	    JPanel connectionPane = new JPanel();   
+	    
+	    JLabel constConnectionStatusLabel = new JLabel("Connection status: ");
+	    
+	    JScrollPane jScrollPane1 = new JScrollPane();
+	    JScrollPane jScrollPane2 = new JScrollPane();
+	    JScrollPane jScrollPane3 = new JScrollPane();
+	    JScrollPane jScrollPane4 = new JScrollPane();
+	    
+	    jScrollPane1.setViewportView(publishTextPane);
+        jScrollPane2.setViewportView(usersTree);
+        jScrollPane3.setViewportView(mainTextPane);
+        jScrollPane4.setViewportView(infoTextArea);
+        
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(smileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(attachButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                            .addComponent(smileButton, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(attachButton, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(sendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(sendButton, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup() 
+            .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 361, Short.MAX_VALUE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 8, GroupLayout.DEFAULT_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(smileButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(smileButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addGap(5, 5, 5)
-                        .addComponent(attachButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(attachButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3)
-                    .addComponent(sendButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(sendButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(5, 5, 5))
         );
         GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
@@ -440,23 +353,23 @@ public class ChatView extends JFrame {
             .addComponent(jScrollPane2, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
+        GroupLayout jPanel4Layout = new GroupLayout(connectionPane);
+        connectionPane.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane4)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(constConnectionStatusLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(connectionStatus))
         );
         jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jScrollPane4, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(connectionStatus)
                     .addComponent(constConnectionStatusLabel))
                 .addContainerGap())
@@ -468,7 +381,7 @@ public class ChatView extends JFrame {
             jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(connectionPane, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -476,7 +389,7 @@ public class ChatView extends JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addComponent(connectionPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         );
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -495,9 +408,7 @@ public class ChatView extends JFrame {
                     .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-    }
-
-  
+    }  
 }
 
 

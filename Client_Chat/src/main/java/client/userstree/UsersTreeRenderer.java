@@ -36,15 +36,16 @@ public class UsersTreeRenderer implements TreeCellRenderer {
             label.setIcon(offline_users);
             return label;
         }
-        System.out.println(node);
-        System.out.println(node.getParent());
-		if (ONLINE.equals(node.getParent().toString().toLowerCase())) {
-			label.setIcon(online);
-			return label;
-		}
-		if (OFFLINE.equals(node.getParent().toString().toLowerCase())) {
-			label.setIcon(offline);
-			return label;
+
+		if (node.getParent() != null) {
+			if (ONLINE.equals(node.getParent().toString().toLowerCase())) {
+				label.setIcon(online);
+				return label;
+			}
+			if (OFFLINE.equals(node.getParent().toString().toLowerCase())) {
+				label.setIcon(offline);
+				return label;
+			}
 		}
 		return label; 
 	}

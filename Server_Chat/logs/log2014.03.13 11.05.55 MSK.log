@@ -1,0 +1,51 @@
+2014-03-13 11:05:55 ERROR root:29 - [ERROR] 
+2014-03-13 11:05:55 ERROR root:30 - 2014.03.13 11.05.55 MSK
+2014-03-13 11:05:55 ERROR root:31 - com.sun.xml.internal.bind.v2.runtime.IllegalAnnotationsException: 2 counts of IllegalAnnotationExceptions
+Property pass is present but not specified in @XmlType.propOrder
+	this problem is related to the following location:
+		at public java.lang.String users.User.getPass()
+		at users.User
+		at public java.util.List users.UsersData.getUsers()
+		at users.UsersData
+Property password appears in @XmlType.propOrder, but no such property exists. Maybe you meant pass?
+	this problem is related to the following location:
+		at users.User
+		at public java.util.List users.UsersData.getUsers()
+		at users.UsersData
+
+2014-03-13 11:05:55 INFO  root:35 - [INFO] 
+2014-03-13 11:05:55 INFO  root:36 - 2014.03.13 11.05.55 MSK
+2014-03-13 11:05:55 INFO  root:37 - Socket server started
+2014-03-13 11:05:55 INFO  root:35 - [INFO] 
+2014-03-13 11:05:55 INFO  root:36 - 2014.03.13 11.05.55 MSK
+2014-03-13 11:05:55 INFO  root:37 - Port: 81
+2014-03-13 11:06:27 INFO  root:35 - [INFO] 
+2014-03-13 11:06:27 INFO  root:36 - 2014.03.13 11.06.27 MSK
+2014-03-13 11:06:27 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-13 11:06:41 INFO  root:35 - [INFO] 
+2014-03-13 11:06:41 INFO  root:36 - 2014.03.13 11.06.41 MSK
+2014-03-13 11:06:41 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-13 11:07:58 INFO  root:35 - [INFO] 
+2014-03-13 11:07:58 INFO  root:36 - 2014.03.13 11.07.58 MSK
+2014-03-13 11:07:58 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-13 11:32:10 INFO  root:35 - [INFO] 
+2014-03-13 11:32:10 INFO  root:36 - 2014.03.13 11.32.10 MSK
+2014-03-13 11:32:10 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-13 11:32:29 INFO  root:35 - [INFO] 
+2014-03-13 11:32:29 INFO  root:36 - 2014.03.13 11.32.29 MSK
+2014-03-13 11:32:29 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-13 11:33:11 INFO  root:35 - [INFO] 
+2014-03-13 11:33:11 INFO  root:36 - 2014.03.13 11.33.11 MSK
+2014-03-13 11:33:11 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-13 11:35:53 INFO  root:35 - [INFO] 
+2014-03-13 11:35:53 INFO  root:36 - 2014.03.13 11.35.53 MSK
+2014-03-13 11:35:53 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-13 11:36:45 INFO  root:35 - [INFO] 
+2014-03-13 11:36:45 INFO  root:36 - 2014.03.13 11.36.45 MSK
+2014-03-13 11:36:45 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-13 11:37:37 INFO  root:35 - [INFO] 
+2014-03-13 11:37:37 INFO  root:36 - 2014.03.13 11.37.37 MSK
+2014-03-13 11:37:37 INFO  root:37 - Client /127.0.0.1 connected
+2014-03-13 11:43:53 INFO  root:35 - [INFO] 
+2014-03-13 11:43:53 INFO  root:36 - 2014.03.13 11.43.53 MSK
+2014-03-13 11:43:53 INFO  root:37 - Client /127.0.0.1 connected

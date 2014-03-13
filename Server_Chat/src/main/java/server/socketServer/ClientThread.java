@@ -154,16 +154,14 @@ public class ClientThread implements Runnable {
 
         // TODO: - разработать эффективный алгоритм передачи истории чата клиенту
         // Отправляем новичку историю чата -
-        //send(server.getChatHistory());
-
+        send(server.getChatHistory());
+        
         // И сообщаем всем клиентам, что подключился новый пользователь
         server.sendToActiveUsers(new UserAuthorize(user));
 
         // Добавляем к списку пользователей - нового пользователя
         server.addAuthorizedUser(this);
     }
-
-
     public SocketServer getServer() {
         return server;
     }

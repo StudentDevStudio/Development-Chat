@@ -11,8 +11,8 @@ public class UsersTreeModel extends DefaultTreeModel {
     private static final long serialVersionUID = 7356295658371697134L;
     private DefaultMutableTreeNode online;
     private DefaultMutableTreeNode offline;
-    
-    public UsersTreeModel(TreeNode root) {
+  	
+	public UsersTreeModel(TreeNode root) {
         super(new DefaultMutableTreeNode("Users"));
         online = new DefaultMutableTreeNode("Online");
         offline = new DefaultMutableTreeNode("Offline");
@@ -22,54 +22,46 @@ public class UsersTreeModel extends DefaultTreeModel {
         insertNodeInto(offline, (MutableTreeNode) getRoot(), 1);
     }
     
-    public void deleteOnlineUser(String userName){
-    	 Object o =  this.getChild(this.getRoot(), 0);
-         DefaultMutableTreeNode node = (DefaultMutableTreeNode)o;
-         
-         System.out.println(node.getUserObject());
-         
-         
-         @SuppressWarnings("unchecked")
-         Enumeration<DefaultMutableTreeNode> enumerat = node.children();
-         while(enumerat.hasMoreElements()){
-             DefaultMutableTreeNode child = enumerat.nextElement();
-             System.out.println(child.getUserObject().toString());
-             
-             if(child.getUserObject().toString().equals(userName)){
-                 node.remove(child);
-                 this.reload(node);
-                 return;
-             }
-         }
-    }
+	public void deleteOnlineUser(String userName) {
+		@SuppressWarnings("unchecked")
+		Enumeration<DefaultMutableTreeNode> enumerat = online.children();
+		while (enumerat.hasMoreElements()) {
+			DefaultMutableTreeNode child = enumerat.nextElement();
+
+			if (child.getUserObject().toString().equals(userName)) {
+				online.remove(child);
+				this.reload(online);
+				return;
+			}
+		}
+	}
     public void deleteOfflineUser(String userName){
-        Object o =  this.getChild(this.getRoot(), 1);
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode)o;
-        
-        
         @SuppressWarnings("unchecked")
-        Enumeration<DefaultMutableTreeNode> enumerat = node.children();
+        Enumeration<DefaultMutableTreeNode> enumerat = offline.children();
         while(enumerat.hasMoreElements()){
             DefaultMutableTreeNode child = enumerat.nextElement();
-            System.out.println(child.getUserObject().toString());
-            
+           
             if(child.getUserObject().toString().equals(userName)){
-                node.remove(child);
-                this.reload(node);
+            	offline.remove(child);
+                this.reload(offline);
                 return;
             }
         }
     }
 	public void addOnlineUser(String userName){
-		 Object o = this.getChild(this.getRoot(), 0);
-	     DefaultMutableTreeNode node = (DefaultMutableTreeNode)o;
-	     
-	     node.add(new DefaultMutableTreeNode(userName));
+		 online.add(new DefaultMutableTreeNode(userName));
+	     this.reload(online);
 	}
     public void addOfflineUser(String userName){
-        Object o =  this.getChild(this.getRoot(), 1);
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode)o;
-        
-        node.add(new DefaultMutableTreeNode(userName));
+        offline.add(new DefaultMutableTreeNode(userName));
+        this.reload(offline);
     }
+
+
+    public DefaultMutableTreeNode getOnline() {
+  		return online;
+  	}
+    public DefaultMutableTreeNode getOffline() {
+  		return offline;
+  	}
 }

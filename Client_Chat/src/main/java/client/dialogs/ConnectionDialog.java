@@ -1,4 +1,4 @@
-package client.view;
+package client.dialogs;
 
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -22,6 +22,7 @@ import javax.swing.WindowConstants;
 import message.AuthorizationMessage;
 import users.User;
 import client.model.ChatModel;
+import client.view.ChatView;
 
 /**
  * Этот диалог предназначен для оформления подключения к серверу

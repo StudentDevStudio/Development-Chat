@@ -1,4 +1,4 @@
-package client.view;
+package client.dialogs;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -76,10 +76,10 @@ public class About extends JDialog {
 					Desktop.getDesktop().browse(
 							new URI("https://vk.com/development_department"));
 				} catch (URISyntaxException ex) {
-					Logger.getLogger(AboutFrame.class.getName()).log(
+					Logger.getLogger(About.class.getName()).log(
 							Level.SEVERE, null, ex);
 				} catch (IOException ex) {
-					Logger.getLogger(AboutFrame.class.getName()).log(
+					Logger.getLogger(About.class.getName()).log(
 							Level.SEVERE, null, ex);
 				}
 			}
@@ -96,10 +96,10 @@ public class About extends JDialog {
 					Desktop.getDesktop().browse(
 							new URI("https://github.com/StudentDevStudio/Development-Chat"));
 				} catch (URISyntaxException ex) {
-					Logger.getLogger(AboutFrame.class.getName()).log(
+					Logger.getLogger(About.class.getName()).log(
 							Level.SEVERE, null, ex);
 				} catch (IOException ex) {
-					Logger.getLogger(AboutFrame.class.getName()).log(
+					Logger.getLogger(About.class.getName()).log(
 							Level.SEVERE, null, ex);
 				}
 			}
